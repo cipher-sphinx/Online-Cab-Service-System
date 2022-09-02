@@ -14,6 +14,17 @@ public class BookingLocation {
     private Street destination;
     private int distanceInKm;
 
+    public BookingLocation(int bookingLocationID, Street source, Street destination, int distanceInKm) {
+        this.bookingLocationID = bookingLocationID;
+        this.source = source;
+        this.destination = destination;
+        this.distanceInKm = distanceInKm;
+    }
+
+    public BookingLocation(int bookingLocationID) {
+        this.bookingLocationID = bookingLocationID;
+    }
+
     public int getBookingLocationID() {
         return bookingLocationID;
     }

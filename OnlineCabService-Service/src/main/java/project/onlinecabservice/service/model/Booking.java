@@ -20,6 +20,19 @@ public class Booking {
     private Vehicle vehicle;
     private BookingLocation bookingLocations;
 
+    public Booking(int bookingID, int priceInLKR, String bookingStatus, String bookingDateTime, String feedback, String ifAcceptedByDriver, Customer customer, Driver driver, Vehicle vehicle, BookingLocation bookingLocations) {
+        this.bookingID = bookingID;
+        this.priceInLKR = priceInLKR;
+        this.bookingStatus = bookingStatus;
+        this.bookingDateTime = bookingDateTime;
+        this.feedback = feedback;
+        this.ifAcceptedByDriver = ifAcceptedByDriver;
+        this.customer = customer;
+        this.driver = driver;
+        this.vehicle = vehicle;
+        this.bookingLocations = bookingLocations;
+    }
+
     public int getBookingID() {
         return bookingID;
     }

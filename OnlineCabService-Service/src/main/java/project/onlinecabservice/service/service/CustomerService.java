@@ -99,7 +99,7 @@ public class CustomerService {
     public Response deleteCustomer(@PathParam("id") int id) {
         customerDB = CustomerDB.getInstance();
 
-        boolean result = customerDB.deleteCity(id);
+        boolean result = customerDB.deleteCustomer(id);
 
         if (result) {
             return Response.status(200).entity("Successfully deleted the customer!").build();

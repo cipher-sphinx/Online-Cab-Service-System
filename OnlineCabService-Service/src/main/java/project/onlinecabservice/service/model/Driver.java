@@ -18,6 +18,9 @@ public class Driver extends User{
         this.city = city;
     }
     
+    public Driver(int id) {
+        super(id);
+    }
     
     public String getDriverStatus() {
         return driverStatus;

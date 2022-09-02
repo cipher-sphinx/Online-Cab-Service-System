@@ -16,6 +16,20 @@ public class Vehicle {
     private String vehicleStatus;
     private Driver driver;
 
+    public Vehicle(int vehicleID, String vehicleRegisterID, String vehicleType, int vehicleCapacity, String vehicleStatus, Driver driver) {
+        this.vehicleID = vehicleID;
+        this.vehicleRegisterID = vehicleRegisterID;
+        this.vehicleType = vehicleType;
+        this.vehicleCapacity = vehicleCapacity;
+        this.vehicleStatus = vehicleStatus;
+        this.driver = driver;
+    }
+
+    public Vehicle(int vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+    
+
     public int getVehicleID() {
         return vehicleID;
     }

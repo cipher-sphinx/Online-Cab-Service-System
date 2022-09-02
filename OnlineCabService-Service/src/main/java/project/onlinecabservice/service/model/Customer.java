@@ -16,7 +16,9 @@ public class Customer extends User{
         this.customerStatus = customerStatus;
     }
     
-    
+    public Customer(int id) {
+        super(id);
+    }
 
     public String getCustomerStatus() {
         return customerStatus;

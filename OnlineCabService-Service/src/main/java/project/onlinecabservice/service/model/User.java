@@ -30,7 +30,10 @@ abstract public class User {
         this.phoneNumber = phoneNumber;
         this.loginStatus = loginStatus;
     }
-    
+
+    public User(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;

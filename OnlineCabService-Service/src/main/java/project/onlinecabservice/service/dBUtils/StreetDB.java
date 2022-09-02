@@ -4,25 +4,27 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import project.onlinecabservice.service.model.City;
+import project.onlinecabservice.service.model.Street;
 
 /**
  *
  * @author Sumaiya
  */
-public class CityDB {
-    
+public class StreetDB {
     //create an object of SingleObject
-    private static CityDB instance = new CityDB();
+    private static StreetDB instance = new StreetDB();
    
     //make the constructor private so that this class cannot be instantiated
-    private CityDB(){}
+    private StreetDB(){}
    
     //Get the only object available
-    public static CityDB getInstance(){
+    public static StreetDB getInstance(){
        return instance;
     }
     
@@ -32,10 +34,11 @@ public class CityDB {
     String query = "";
     
     City city = null;
-    
-    //GET a city by its ID
-    public City getCity(int id) {
-        query = "call cabservicedatabase.getCity("+ id + ")";
+    Street street = null;
+ 
+    //GET a street by its ID
+    public Street getStreet(int id) {
+        query = "call cabservicedatabase.getStreet(" + id + ")";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -45,18 +48,19 @@ public class CityDB {
             while(resultSet.next()) {
                 // Retrieve by column name
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                street = new Street(resultSet.getInt("StreetID"), resultSet.getString("StreetName"), city);
             }   
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return city;
+        return street;
     }
     
     
     //GET all cities
-    public List<City> getCities() {
-        List<City> cities = new ArrayList<>();
-        query = "call cabservicedatabase.getAllCities()";
+    public List<Street> getStreets() {
+        List<Street> streets = new ArrayList<>();
+        query = "call cabservicedatabase.getAllStreets()";
         try {
             dBInit =  DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -65,18 +69,19 @@ public class CityDB {
             
             while(resultSet.next()) {
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                cities.add(city);
+                street = new Street(resultSet.getInt("StreetID"), resultSet.getString("StreetName"), city);                streets.add(street);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }    
-        return cities;
+        return streets;
     }
     
     
-    //ADD city
-    public boolean addCity(City city) {
-        query = "INSERT INTO city(CityName, CityPhoneNumber, CityEmail) VALUES ('"+ city.getCityName()+  "', '" + city.getCityPhoneNumber() +   "', '"  + city.getCityEmail()  + "')";
+    //ADD street
+    public boolean addStreet(Street street) {
+        city = new City(street.getCity().getCityID());
+        query = "INSERT INTO street(StreetName, CityID) VALUES ('"+ street.getStreetName()+  "', '" + city.getCityID() + "')";
         try {
             dBInit =  DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -91,9 +96,10 @@ public class CityDB {
         return false;
     }
     
-    //UPDATE city
-    public boolean updateCity(City city) {
-        query = "UPDATE city SET CityName = '" + city.getCityName() + "', CityPhoneNumber = '" + city.getCityPhoneNumber() + "' WHERE (`CityID` = '"  + city.getCityID() + "')";
+    //UPDATE street
+    public boolean updateStreet(Street street) {
+        city = new City(street.getCity().getCityID());
+        query = "UPDATE street SET StreetName = '" + street.getStreetName() + "' , CityID = '" + city.getCityID() + "' WHERE (`StreetID` = '"  + street.getStreetID() + "')";
         try {
             dBInit =  DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -106,9 +112,9 @@ public class CityDB {
         return false;
     }
     
-    //DELETE a city by its ID
-    public boolean deleteCity(int id) {
-        query = "call cabservicedatabase.deleteCity(" + id + ")";
+    //DELETE a street by its ID
+    public boolean deleteStreet(int id) {
+        query = "call cabservicedatabase.deleteStreet(" + id + ")";
         try {
             dBInit =  DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -120,6 +126,5 @@ public class CityDB {
         }  
         return false;
     }
-    
     
 }

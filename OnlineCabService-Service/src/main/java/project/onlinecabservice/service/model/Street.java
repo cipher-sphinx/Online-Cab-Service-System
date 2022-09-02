@@ -13,6 +13,17 @@ public class Street {
     private String streetName;
     private City city;
 
+    public Street(int streetID, String streetName, City city) {
+        this.streetID = streetID;
+        this.streetName = streetName;
+        this.city = city;
+    }
+
+    public Street(int streetID) {
+        this.streetID = streetID;
+    }
+
+    
     public int getStreetID() {
         return streetID;
     }

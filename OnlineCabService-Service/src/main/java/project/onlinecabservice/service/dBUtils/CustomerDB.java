@@ -30,11 +30,12 @@ public class CustomerDB {
     Statement statement = null;
     ResultSet resultSet = null;
     String query = "";
-            
+    
+    Customer customer = null;   
+    
     //GET a customer by its id
     public Customer getCustomer(int id) {
-        Customer customer = null;
-        query = "SELECT * FROM customer WHERE CustomerID ='" + id + "'";
+        query = "call cabservicedatabase.getCustomer(" + id + ")";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -56,7 +57,7 @@ public class CustomerDB {
     //GET all customers
     public List<Customer> getCustomers() {
         List<Customer> customers = new ArrayList<>();
-        query = "SELECT * FROM customer";
+        query = "call cabservicedatabase.getAllcustomers()";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -64,7 +65,7 @@ public class CustomerDB {
             resultSet = statement.executeQuery(query);
             
             while(resultSet.next()) {
-                Customer customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"), resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
+                customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"), resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
                     
                 customers.add(customer);
             }
@@ -107,8 +108,8 @@ public class CustomerDB {
     }
     
     //DELETE a customer by its ID
-    public boolean deleteCity(int id) {
-        query = "DELETE FROM customer WHERE (CustomerID = '" + id + "');";
+    public boolean deleteCustomer(int id) {
+        query = "call cabservicedatabase.deleteCustomer(" + id + ")";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package project.onlinecabservice.service.dBUtils;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,21 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 import project.onlinecabservice.service.model.City;
 import project.onlinecabservice.service.model.Driver;
+import project.onlinecabservice.service.model.Vehicle;
 
 /**
  *
  * @author Sumaiya
  */
-public class DriverDB {
-    
+public class VehicleDB {
     //create an object of SingleObject
-    private static DriverDB instance = new DriverDB();
+    private static VehicleDB instance = new VehicleDB();
    
     //make the constructor private so that this class cannot be instantiated
-    private DriverDB(){}
+    private VehicleDB(){}
    
     //Get the only object available
-    public static DriverDB getInstance(){
+    public static VehicleDB getInstance(){
        return instance;
     }
     
@@ -33,12 +34,14 @@ public class DriverDB {
     ResultSet resultSet = null;
     String query = "";
     
+    Driver driver = null;
     City city = null;
-    Driver driver = null;        
+    Vehicle vehicle = null;
+            
 
-    //GET a driver by its id
-    public Driver getDriver(int id) {
-        query = "call cabservicedatabase.getDriver(" + id + ")";
+    //GET a vehicle by its id
+    public Vehicle getVehicle(int id) {
+        query = "call cabservicedatabase.getVehicle(" + id + ")";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -50,18 +53,19 @@ public class DriverDB {
                 // Retrieve by column name
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
                 driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), driver);
             }   
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return driver;
+        return vehicle;
     }
     
     
-    //GET all drivers
-    public List<Driver> getDrivers() {
-        List<Driver> drivers = new ArrayList<>();
-        query = "call cabservicedatabase.getAllDrivers()" ;
+    //GET all vehicles
+    public List<Vehicle> getVehicles() {
+        List<Vehicle> vehicles = new ArrayList<>();
+        query = "call cabservicedatabase.getAllVehicles()" ;
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -71,20 +75,20 @@ public class DriverDB {
             while(resultSet.next()) {
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
                 driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
-                    
-                drivers.add(driver);
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), driver);                    
+                vehicles.add(vehicle);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }    
-        return drivers;
+        return vehicles;
     }
     
     
-    //ADD driver
-    public boolean addDriver(Driver driver) {
-        city = new City(driver.getCity().getCityID());
-        query = "INSERT INTO driver(DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, CityID) VALUES ('" + driver.getNic() +  "', '" + driver.getUsername() +  "', '" +  driver.getPassword()  +  "', '" +  driver.getFirstName() +  "', '" +  driver.getLastName() +  "', '" +  driver.getEmail() +  "', '" +  driver.getPhoneNumber() +  "', '" +  driver.getLoginStatus() +  "', '" +  driver.getDriverStatus() +  "', '" + city.getCityID() +  "')";
+    //ADD vehicle
+    public boolean addVehicle(Vehicle vehicle) {
+        driver = new Driver(vehicle.getDriver().getId());
+        query = "INSERT INTO vehicle(VehicleRegisterID, VehicleType, VehicleCapacity, VehicleStatus, DriverID) VALUES ('" + vehicle.getVehicleRegisterID()+  "', '" + vehicle.getVehicleType() +  "', '" +  vehicle.getVehicleCapacity() +  "', '" +  vehicle.getVehicleStatus() +  "', '" + driver.getId() +  "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -100,10 +104,10 @@ public class DriverDB {
     }
     
 
-    //UPDATE driver
-    public boolean updateDriver(Driver driver) {
-        city = new City(driver.getCity().getCityID());
-        query = "UPDATE driver SET DriverNIC = '" + driver.getNic()+ "', DriverUsername = '" + driver.getUsername() + "', DriverPassword = '" + driver.getPassword() + "', DriverFirstName = '" + driver.getFirstName() + "', DriverLastName = '" + driver.getLastName() + "', DriverEmail = '" + driver.getEmail() + "', DriverPhoneNumber = '" + driver.getPhoneNumber() + "', DriverLoginStatus = '" + driver.getLoginStatus() + "', DriverStatus = '" + driver.getDriverStatus() + "', CityID = '"+ city.getCityID() + "' WHERE (`DriverID` = '"  + driver.getId()+ "')";
+    //UPDATE vehicle
+    public boolean updateVehicle(Vehicle vehicle) {
+        driver = new Driver(vehicle.getDriver().getId());
+        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleType = '" + vehicle.getVehicleType() + "', VehicleCapacity = '" + vehicle.getVehicleCapacity() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -117,9 +121,9 @@ public class DriverDB {
     }
     
     
-    //DELETE a driver by its ID
-    public boolean deleteDriver(int id) {
-        query = "call cabservicedatabase.deleteDriver(" + id + ")";
+    //DELETE a vehicle by its ID
+    public boolean deleteVehicle(int id) {
+        query = "call cabservicedatabase.deleteVehicle(" + id + ")";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
