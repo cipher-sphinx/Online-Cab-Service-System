@@ -53,6 +53,7 @@ CREATE TABLE driver (
   DriverEmail VARCHAR(70) NOT NULL,
   DriverPhoneNumber INT(10) NOT NULL,
   DriverLoginStatus VARCHAR(20) NOT NULL,
+  DriverLicenceID VARCHAR(45) NOT NULL,
   DriverStatus VARCHAR(20) NULL,
   CityID INT,
   CONSTRAINT d_did_pk PRIMARY KEY (DriverID),
@@ -71,15 +72,27 @@ CREATE TABLE street (
 
 ALTER TABLE street AUTO_INCREMENT = 75001;
 
+CREATE TABLE vehicletype (
+  TypeID INT AUTO_INCREMENT,
+  TypeName VARCHAR(50) NOT NULL,
+  CONSTRAINT t_tid_pk PRIMARY KEY (TypeID)
+  );
+  
+  ALTER TABLE vehicletype AUTO_INCREMENT = 57001;
+
 CREATE TABLE vehicle (
   VehicleID INT AUTO_INCREMENT,
-  VehicleRegisterID VARCHAR(50) NOT NULL,
-  VehicleType VARCHAR(50) NULL,
+  VehicleRegisterID VARCHAR(50) UNIQUE NOT NULL,
+  VehicleNumber VARCHAR(45) UNIQUE NOT NULL,
+  VehicleInsuranceID VARCHAR(45) UNIQUE NOT NULL,
+  VehicleColour VARCHAR(45) NOT NULL,
   VehicleCapacity INT(20) NULL,
   VehicleStatus VARCHAR(20) NULL,
   DriverID INT,
+  TypeID INT,
   CONSTRAINT v_vid_pk PRIMARY KEY (VehicleID),
-  CONSTRAINT v_did_fk FOREIGN KEY (DriverID) REFERENCES driver(DriverID)
+  CONSTRAINT v_did_fk FOREIGN KEY (DriverID) REFERENCES driver(DriverID),
+  CONSTRAINT v_tid_fk FOREIGN KEY (TypeID) REFERENCES vehicletype(TypeID)
 );
 
 ALTER TABLE vehicle AUTO_INCREMENT = 27001;
@@ -278,6 +291,515 @@ INSERT INTO `cabservicedatabase`.`bookinglocation` (`BkSourceID`, `BkDestination
 INSERT INTO `cabservicedatabase`.`bookinglocation` (`BkSourceID`, `BkDestinationID`, `BkDistanceInKm`) VALUES ('75030', '75029', '12');
 
 
+
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Flex');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('MiniCar');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Car');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Tuk');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Bike');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('MiniVan');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Van');
+
+-- stored procedures --
+
+-- ------------------------------------city----------------------------------------------------
+-- get all cities --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllCities`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllCities` ()
+BEGIN
+	SELECT * FROM city;
+END$$
+
+DELIMITER ;
+
+-- get city --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getCity`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getCity` (
+	IN id INT
+)
+BEGIN
+	SELECT * FROM city WHERE CityID = id;
+END$$
+
+DELIMITER ;
+
+-- delete city --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteCity`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteCity` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM city WHERE (CityID = id);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------admin----------------------------------------------------
+-- get all admins --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllAdmins`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllAdmins` ()
+BEGIN
+	SELECT * FROM admin;
+END$$
+
+DELIMITER ;
+
+-- get admin --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAdmin`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAdmin` (
+	IN id INT
+)
+BEGIN
+	SELECT * FROM admin WHERE AdminID = id;
+END$$
+
+DELIMITER 
+
+-- delete admin --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteAdmin`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteAdmin` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM admin WHERE (AdminID = id);
+END$$
+
+DELIMITER ;
+
+
+-- ------------------------------------booking----------------------------------------------------
+-- get all bookings --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllBookings`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllBookings` ()
+BEGIN
+	SELECT book.BookingID, book.PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
+		   book.CustomerID, cust.CustomerNIC, cust.CustomerUsername, cust.CustomerPassword, cust.CustomerFirstName, cust.CustomerLastName, cust.CustomerEmail, cust.CustomerPhoneNumber, cust.CustomerLoginStatus, cust.CustomerStatus, 
+		   book.DriverID, driv.DriverNIC, driv.DriverUsername, driv.DriverPassword, driv.DriverFirstName, driv.DriverLastName, driv.DriverEmail, driv.DriverPhoneNumber, driv.DriverLoginStatus, driv.DriverLicenceID, driv.DriverStatus, 
+		   driv.CityID as DriverCityID, drivCity.CityName as DriverCityName, drivCity.CityEmail as DriverCityEmail, drivCity.CityPhoneNumber as DriverCityPhoneNumber, 
+		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleCapacity, veh.VehicleStatus, 
+		   veh.DriverID as VehicleDriverID, vehDriver.DriverNIC as VehicleDriverNIC, vehDriver.DriverUsername as VehicleDriverUsername, vehDriver.DriverPassword as VehicleDriverPassword, vehDriver.DriverFirstName as VehicleDriverFirstName, vehDriver.DriverLastName as VehicleDriverLastName, vehDriver.DriverEmail as VehicleDriverEmail, vehDriver.DriverPhoneNumber as VehicleDriverPhoneNumber, vehDriver.DriverLoginStatus as VehicleDriverLoginStatus, vehDriver.DriverLicenceID as VehicleDriverLicenceID, vehDriver.DriverStatus as VehicleDriverStatus, 
+		   vehDriver.CityID as VehicleDriverCityID, vehDriverCity.CityName as VehicleDriverCityName, vehDriverCity.CityEmail as VehicleDriverCityEmail, vehDriverCity.CityPhoneNumber as VehicleDriverCityPhoneNumber, 
+		   veh.TypeID, typeV.TypeName,
+           book.BkLocationID , 
+		   bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, 
+		   pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber,
+		   bkLoc.BkDestinationID as DestinationID, destination.StreetName as DestinationName,
+		   destination.CityID as DestinationCityID, destCity.CityName as DestinationCityName, destCity.CityEmail as DestinationCityEmail, destCity.CityPhoneNumber as DestinationCityPhoneNumber,
+		   bkLoc.BkDistanceInKm
+	FROM booking book, customer cust, driver driv, vehicle veh, bookinglocation bkLoc, city drivCity, driver vehDriver, city vehDriverCity, vehicletype typeV, street pickup, street destination, city pickupCity, city destCity
+	WHERE book.CustomerID = cust.CustomerID AND book.DriverID = driv.DriverID AND book.VehicleID = veh.VehicleID AND book.BkLocationID = bkLoc.BkLocationID AND driv.CityID = drivCity.CityID AND veh.DriverID = vehDriver.DriverID AND vehDriver.CityID = vehDriverCity.CityID AND bkLoc.BkSourceID = pickup.StreetID AND pickup.CityID = pickupCity.CityID AND bkLoc.BkDestinationID = destination.StreetID AND destination.CityID = destCity.CityID AND veh.TypeID = typeV.TypeID;
+END$$
+
+DELIMITER ;
+
+-- get booking --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getBooking`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getBooking` (
+	IN id INT
+)
+BEGIN
+	SELECT book.BookingID, book.PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
+		   book.CustomerID, cust.CustomerNIC, cust.CustomerUsername, cust.CustomerPassword, cust.CustomerFirstName, cust.CustomerLastName, cust.CustomerEmail, cust.CustomerPhoneNumber, cust.CustomerLoginStatus, cust.CustomerStatus, 
+		   book.DriverID, driv.DriverNIC, driv.DriverUsername, driv.DriverPassword, driv.DriverFirstName, driv.DriverLastName, driv.DriverEmail, driv.DriverPhoneNumber, driv.DriverLoginStatus, driv.DriverLicenceID, driv.DriverStatus, 
+		   driv.CityID as DriverCityID, drivCity.CityName as DriverCityName, drivCity.CityEmail as DriverCityEmail, drivCity.CityPhoneNumber as DriverCityPhoneNumber, 
+		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleCapacity, veh.VehicleStatus, 
+		   veh.DriverID as VehicleDriverID, vehDriver.DriverNIC as VehicleDriverNIC, vehDriver.DriverUsername as VehicleDriverUsername, vehDriver.DriverPassword as VehicleDriverPassword, vehDriver.DriverFirstName as VehicleDriverFirstName, vehDriver.DriverLastName as VehicleDriverLastName, vehDriver.DriverEmail as VehicleDriverEmail, vehDriver.DriverPhoneNumber as VehicleDriverPhoneNumber, vehDriver.DriverLoginStatus as VehicleDriverLoginStatus, vehDriver.DriverLicenceID as VehicleDriverLicenceID, vehDriver.DriverStatus as VehicleDriverStatus, 
+		   vehDriver.CityID as VehicleDriverCityID, vehDriverCity.CityName as VehicleDriverCityName, vehDriverCity.CityEmail as VehicleDriverCityEmail, vehDriverCity.CityPhoneNumber as VehicleDriverCityPhoneNumber, 
+		   veh.TypeID, typeV.TypeName,
+           book.BkLocationID , 
+		   bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, 
+		   pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber,
+		   bkLoc.BkDestinationID as DestinationID, destination.StreetName as DestinationName,
+		   destination.CityID as DestinationCityID, destCity.CityName as DestinationCityName, destCity.CityEmail as DestinationCityEmail, destCity.CityPhoneNumber as DestinationCityPhoneNumber,
+		   bkLoc.BkDistanceInKm
+	FROM booking book, customer cust, driver driv, vehicle veh, bookinglocation bkLoc, city drivCity, driver vehDriver, city vehDriverCity, vehicletype typeV, street pickup, street destination, city pickupCity, city destCity
+	WHERE book.CustomerID = cust.CustomerID AND book.DriverID = driv.DriverID AND book.VehicleID = veh.VehicleID AND book.BkLocationID = bkLoc.BkLocationID AND driv.CityID = drivCity.CityID AND veh.DriverID = vehDriver.DriverID AND vehDriver.CityID = vehDriverCity.CityID AND bkLoc.BkSourceID = pickup.StreetID AND pickup.CityID = pickupCity.CityID AND bkLoc.BkDestinationID = destination.StreetID AND destination.CityID = destCity.CityID AND veh.TypeID = typeV.TypeID
+	AND BookingID = id;
+END$$
+
+DELIMITER ;
+
+
+-- delete booking --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteBooking`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteBooking` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM booking WHERE (BookingID = id );
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------bookinglocation----------------------------------------------------
+-- get all bookinglocations --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllBookingLocations`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllBookingLocations` ()
+BEGIN
+	SELECT bkLoc.BkLocationID, bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber, bkLoc.BkDestinationID as DestinationID, destination.StreetName as DestinationName, destination.CityID as DestinationCityID, destCity.CityName as DestinationCityName, destCity.CityEmail as DestinationCityEmail, destCity.CityPhoneNumber as DestinationCityPhoneNumber, bkLoc.BkDistanceInKm  
+	FROM bookinglocation bkLoc 
+	JOIN street pickup ON bkLoc.BkSourceID = pickup.StreetID 
+	JOIN street destination ON bkLoc.BkDestinationID = destination.StreetID
+	JOIN city pickupCity ON pickup.CityID = pickupCity.CityID
+	JOIN city destCity ON destination.CityID = destCity.CityID;
+END$$
+
+DELIMITER ;
+
+-- get bookinglocation --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getBookingLocation`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getBookingLocation` (
+	IN id INT
+)
+BEGIN
+	SELECT bkLoc.BkLocationID, bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber, bkLoc.BkDestinationID as DestinationID, destination.StreetName as DestinationName, destination.CityID as DestinationCityID, destCity.CityName as DestinationCityName, destCity.CityEmail as DestinationCityEmail, destCity.CityPhoneNumber as DestinationCityPhoneNumber, bkLoc.BkDistanceInKm  
+	FROM bookinglocation bkLoc 
+	JOIN street pickup ON bkLoc.BkSourceID = pickup.StreetID
+	JOIN street destination ON bkLoc.BkDestinationID = destination.StreetID
+	JOIN city pickupCity ON pickup.CityID = pickupCity.CityID
+	JOIN city destCity ON destination.CityID = destCity.CityID
+	WHERE bkLoc.BkLocationID = id;
+END$$
+
+DELIMITER ;
+
+-- delete bookinglocation --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteBookingLocation`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteBookingLocation` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM bookinglocation WHERE (BookingLocationID = id);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------customer----------------------------------------------------
+-- get all customers --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllcustomers`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllcustomers` ()
+BEGIN
+	SELECT * FROM customer;
+END$$
+
+DELIMITER ;
+
+-- get customer --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getCustomer`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getCustomer` (
+	IN id INT
+)
+BEGIN
+	SELECT * FROM customer WHERE CustomerID = id;
+END$$
+
+DELIMITER ;
+
+-- delete customer --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteCustomer`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteCustomer` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM customer WHERE (CustomerID = id);
+END$$
+
+DELIMITER ;
+
+
+-- ------------------------------------driver----------------------------------------------------
+-- get all drivers --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllDrivers`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllDrivers` ()
+BEGIN
+	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
+	FROM driver driverV 
+	JOIN city cityV ON driverV.CityID = cityV.CityID;
+END$$
+
+DELIMITER ;
+
+
+-- get driver --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getDriver`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getDriver` (
+	IN id INT
+)
+BEGIN
+	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
+	FROM driver driverV 
+	JOIN city cityV ON driverV.CityID = cityV.CityID
+	WHERE DriverID = id;
+END$$
+
+DELIMITER ;
+
+
+-- delete driver --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteDriver`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteDriver` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM driver WHERE (DriverID = id);
+END$$
+
+DELIMITER ;
+
+
+-- ------------------------------------street----------------------------------------------------
+-- get all streets --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllStreets`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllStreets` ()
+BEGIN
+	SELECT StreetID, StreetName, streetV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
+	FROM street streetV 
+	JOIN city cityV ON streetV.CityID = cityV.CityID;
+END$$
+
+DELIMITER ;
+
+
+-- get street --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getStreet`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getStreet` (
+	IN id INT
+)
+BEGIN
+	SELECT StreetID, StreetName, streetV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber
+	FROM street streetV 
+	JOIN city cityV ON streetV.CityID = cityV.CityID
+	WHERE StreetID = id; 
+END$$
+
+DELIMITER ;
+
+-- delete street --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteStreet`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteStreet` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM street WHERE (StreetID = id);
+END$$
+
+DELIMITER ;
+
+
+
+-- ------------------------------------vehicle----------------------------------------------------
+-- get all vehicles --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllVehicles`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllVehicles` ()
+BEGIN
+	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleCapacity, vehicleV.VehicleStatus, 
+	       vehicleV.TypeID, typeV.TypeName,
+           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus
+	FROM vehicle vehicleV, driver driverV, vehicletype typeV
+	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID;
+END$$
+
+DELIMITER ;
+
+
+-- get vehicle --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getVehicle`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getVehicle` (
+	IN id INT
+)
+BEGIN
+	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleCapacity, vehicleV.VehicleStatus, 
+	       vehicleV.TypeID, typeV.TypeName,
+           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus
+	FROM vehicle vehicleV, driver driverV, vehicletype typeV
+	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID
+	AND VehicleID = id;
+END$$
+
+DELIMITER ;
+
+
+-- delete vehicle --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteVehicle`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteVehicle` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM vehicle WHERE (VehicleID = id);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------vehicletype----------------------------------------------------
+-- get all vehicletype --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAllVehicleTypes`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAllVehicleType` ()
+BEGIN
+	SELECT * FROM vehicletype;
+END$$
+
+DELIMITER ;
+
+
+
+-- get vehicletype --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getVehicleType`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getVehicleType` (
+	IN id INT
+)
+BEGIN
+	SELECT * FROM vehicletype
+    WHERE TypeID = id;
+END$$
+
+DELIMITER ;
+
+
+-- delete vehicletype --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `deleteVehicleType`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `deleteVehicleType` (
+	IN id INT
+)
+BEGIN
+	DELETE FROM vehicletype WHERE (TypeID = id);
+END$$
+
+DELIMITER ;
 
 
 
