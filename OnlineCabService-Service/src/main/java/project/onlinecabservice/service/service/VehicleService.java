@@ -22,6 +22,7 @@ import project.onlinecabservice.service.model.Vehicle;
  *
  * @author Sumaiya
  */
+@Path("vehicle")
 public class VehicleService {
     VehicleDB vehicleDB = null;
     GSON gsonSingleton = null;

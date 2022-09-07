@@ -16,6 +16,7 @@ import project.onlinecabservice.service.model.Customer;
 import project.onlinecabservice.service.model.Driver;
 import project.onlinecabservice.service.model.Street;
 import project.onlinecabservice.service.model.Vehicle;
+import project.onlinecabservice.service.model.VehicleType;
 
 /**
  *
@@ -45,6 +46,7 @@ public class BookingDB {
     
     City vehicleDriverCity = null;
     Driver vehDriver = null;
+    VehicleType vehicletype = null;
     Vehicle vehicle = null;
     
     City sourceCity = null;
@@ -71,11 +73,12 @@ public class BookingDB {
                 customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"),resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
                 
                 driverCity = new City(resultSet.getInt("DriverCityID"), resultSet.getString("DriverCityName"), resultSet.getString("DriverCityEmail"), resultSet.getInt("DriverCityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), driverCity); 
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), driverCity); 
                 
                 vehicleDriverCity = new City(resultSet.getInt("VehicleDriverCityID"), resultSet.getString("VehicleDriverCityName"), resultSet.getString("VehicleDriverCityEmail"), resultSet.getInt("VehicleDriverCityPhoneNumber"));
-                vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehDriver);
+                vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverLicenceID"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
                 
                 sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
                 source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
@@ -106,15 +109,16 @@ public class BookingDB {
                 customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"),resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
                 
                 driverCity = new City(resultSet.getInt("DriverCityID"), resultSet.getString("DriverCityName"), resultSet.getString("DriverCityEmail"), resultSet.getInt("DriverCityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), driverCity); 
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"),resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), driverCity); 
                 
                 vehicleDriverCity = new City(resultSet.getInt("VehicleDriverCityID"), resultSet.getString("VehicleDriverCityName"), resultSet.getString("VehicleDriverCityEmail"), resultSet.getInt("VehicleDriverCityPhoneNumber"));
-                vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehDriver);
+                vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverLicenceID"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
                 
                 sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
                 source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
-                destCity = new City(resultSet.getInt("DestionationCityID"), resultSet.getString("DestionationCityName"), resultSet.getString("DestionationCityEmail"), resultSet.getInt("DestionationCityPhoneNumber"));
+                destCity = new City(resultSet.getInt("DestinationCityID"), resultSet.getString("DestinationCityName"), resultSet.getString("DestinationCityEmail"), resultSet.getInt("DestinationCityPhoneNumber"));
                 destination = new Street(resultSet.getInt("DestinationID"), resultSet.getString("DestinationName"), destCity);
                 bookinglocation = new BookingLocation(resultSet.getInt("BkLocationID"), source, destination, resultSet.getInt("BkDistanceInKm"));
                 

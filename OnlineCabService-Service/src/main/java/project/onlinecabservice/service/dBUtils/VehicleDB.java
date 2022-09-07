@@ -12,6 +12,7 @@ import java.util.List;
 import project.onlinecabservice.service.model.City;
 import project.onlinecabservice.service.model.Driver;
 import project.onlinecabservice.service.model.Vehicle;
+import project.onlinecabservice.service.model.VehicleType;
 
 /**
  *
@@ -36,6 +37,7 @@ public class VehicleDB {
     
     Driver driver = null;
     City city = null;
+    VehicleType vehicletype = null;
     Vehicle vehicle = null;
             
 
@@ -52,8 +54,9 @@ public class VehicleDB {
             while(resultSet.next()) {
                 // Retrieve by column name
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), driver);
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, driver);
             }   
         } catch (SQLException e) {
             System.out.println(e);
@@ -74,8 +77,9 @@ public class VehicleDB {
             
             while(resultSet.next()) {
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleType"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), driver);                    
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, driver);                
                 vehicles.add(vehicle);
             }
         } catch (SQLException e) {
@@ -88,7 +92,8 @@ public class VehicleDB {
     //ADD vehicle
     public boolean addVehicle(Vehicle vehicle) {
         driver = new Driver(vehicle.getDriver().getId());
-        query = "INSERT INTO vehicle(VehicleRegisterID, VehicleType, VehicleCapacity, VehicleStatus, DriverID) VALUES ('" + vehicle.getVehicleRegisterID()+  "', '" + vehicle.getVehicleType() +  "', '" +  vehicle.getVehicleCapacity() +  "', '" +  vehicle.getVehicleStatus() +  "', '" + driver.getId() +  "')";
+        vehicletype = new VehicleType(vehicle.getVehicleType().getTypeID());
+        query = "INSERT INTO vehicle(VehicleRegisterID, VehicleNumber, VehicleInsuranceID, VehicleColour, VehicleCapacity, VehicleStatus, DriverID, TypeID) VALUES ('" + vehicle.getVehicleRegisterID()+  "', '" + vehicle.getVehicleNumber() + "', '" + vehicle.getVehicleInsuranceID() + "', '" + vehicle.getVehicleColour() +  "', '" +  vehicle.getVehicleCapacity() +  "', '" +  vehicle.getVehicleStatus() +  "', '" + driver.getId() + "', '" + vehicletype.getTypeID() +  "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -107,7 +112,8 @@ public class VehicleDB {
     //UPDATE vehicle
     public boolean updateVehicle(Vehicle vehicle) {
         driver = new Driver(vehicle.getDriver().getId());
-        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleType = '" + vehicle.getVehicleType() + "', VehicleCapacity = '" + vehicle.getVehicleCapacity() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
+        vehicletype = new VehicleType(vehicle.getVehicleType().getTypeID());
+        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleNumber = '" + vehicle.getVehicleColour() + "', VehicleInsuranceID = '" + vehicle.getVehicleInsuranceID() + "', VehicleColour = '" + vehicle.getVehicleColour() + "', VehicleCapacity = '" + vehicle.getVehicleCapacity() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "', TypeID = '" + vehicletype.getTypeID() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
