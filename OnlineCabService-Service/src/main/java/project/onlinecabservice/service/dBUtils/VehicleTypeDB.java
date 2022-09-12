@@ -47,7 +47,7 @@ public class VehicleTypeDB {
             // Extract data from result set
             while(resultSet.next()) {
                 // Retrieve by column name
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
             }   
         } catch (SQLException e) {
             System.out.println(e);
@@ -67,7 +67,7 @@ public class VehicleTypeDB {
             resultSet = statement.executeQuery(query);
             
             while(resultSet.next()) {
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
                 vehicletypes.add(vehicletype);
             }
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class VehicleTypeDB {
     
     //ADD vehicletype
     public boolean addVehicleType(VehicleType vehicletype) {
-        query = "INSERT INTO vehicletype(TypeName) VALUES ('" + vehicletype.getTypeName() +"')";
+        query = "INSERT INTO vehicletype(TypeName, VehicleCapacity, PricePerKmInLKR) VALUES ('" + vehicletype.getTypeName() + "', '" + vehicletype.getVehicleCapacity() + "', '" + vehicletype.getPricePerKmInLKR() + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -97,7 +97,7 @@ public class VehicleTypeDB {
 
     //UPDATE vehicletype
     public boolean updateVehicleType(VehicleType vehicletype) {
-        query = "UPDATE vehicletype SET TypeName = '" + vehicletype.getTypeName()  + "' WHERE (`TypeID` = '"  + vehicletype.getTypeID() + "')";
+        query = "UPDATE vehicletype SET TypeName = '" + vehicletype.getTypeName()  + "', VehicleCapacity = '" + vehicletype.getVehicleCapacity() + "', PricePerKmInLKR = '" + vehicletype.getPricePerKmInLKR() + "' WHERE (`TypeID` = '"  + vehicletype.getTypeID() + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

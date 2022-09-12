@@ -11,15 +11,21 @@ package project.onlinecabservice.service.model;
 public class VehicleType {
     private int TypeID;
     private String TypeName;
+    private int vehicleCapacity;
+    private int pricePerKmInLKR;
 
     public VehicleType(int TypeID) {
         this.TypeID = TypeID;
     }
 
-    public VehicleType(int TypeID, String TypeName) {
+    public VehicleType(int TypeID, String TypeName, int vehicleCapacity, int pricePerKmInLKR) {
         this.TypeID = TypeID;
         this.TypeName = TypeName;
+        this.vehicleCapacity = vehicleCapacity;
+        this.pricePerKmInLKR = pricePerKmInLKR;
     }
+
+    
     
 
     public int getTypeID() {
@@ -36,6 +42,22 @@ public class VehicleType {
 
     public void setTypeName(String TypeName) {
         this.TypeName = TypeName;
+    }
+
+    public int getVehicleCapacity() {
+        return vehicleCapacity;
+    }
+
+    public void setVehicleCapacity(int vehicleCapacity) {
+        this.vehicleCapacity = vehicleCapacity;
+    }
+
+    public int getPricePerKmInLKR() {
+        return pricePerKmInLKR;
+    }
+
+    public void setPricePerKmInLKR(int pricePerKmInLKR) {
+        this.pricePerKmInLKR = pricePerKmInLKR;
     }
     
     

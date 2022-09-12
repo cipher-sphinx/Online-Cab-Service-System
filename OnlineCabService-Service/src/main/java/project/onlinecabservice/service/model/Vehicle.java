@@ -14,19 +14,17 @@ public class Vehicle {
     private String vehicleNumber;
     private String vehicleInsuranceID;
     private String vehicleColour;
-    private int vehicleCapacity;
     private String vehicleStatus;
     private VehicleType vehicleType;
     private Driver driver;
     
 
-    public Vehicle(int vehicleID, String vehicleRegisterID, String vehicleNumber, String vehicleInsuranceID, String vehicleColour, int vehicleCapacity, String vehicleStatus, VehicleType vehicleType, Driver driver) {
+    public Vehicle(int vehicleID, String vehicleRegisterID, String vehicleNumber, String vehicleInsuranceID, String vehicleColour, String vehicleStatus, VehicleType vehicleType, Driver driver) {
         this.vehicleID = vehicleID;
         this.vehicleRegisterID = vehicleRegisterID;
         this.vehicleNumber = vehicleNumber;
         this.vehicleInsuranceID = vehicleInsuranceID;
         this.vehicleColour = vehicleColour;
-        this.vehicleCapacity = vehicleCapacity;
         this.vehicleStatus = vehicleStatus;
         this.driver = driver;
         this.vehicleType = vehicleType;
@@ -52,14 +50,6 @@ public class Vehicle {
 
     public void setVehicleRegisterID(String vehicleRegisterID) {
         this.vehicleRegisterID = vehicleRegisterID;
-    }
-
-    public int getVehicleCapacity() {
-        return vehicleCapacity;
-    }
-
-    public void setVehicleCapacity(int vehicleCapacity) {
-        this.vehicleCapacity = vehicleCapacity;
     }
 
     public String getVehicleStatus() {

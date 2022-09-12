@@ -77,8 +77,8 @@ public class BookingDB {
                 
                 vehicleDriverCity = new City(resultSet.getInt("VehicleDriverCityID"), resultSet.getString("VehicleDriverCityName"), resultSet.getString("VehicleDriverCityEmail"), resultSet.getInt("VehicleDriverCityPhoneNumber"));
                 vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverLicenceID"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
                 
                 sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
                 source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
@@ -113,8 +113,8 @@ public class BookingDB {
                 
                 vehicleDriverCity = new City(resultSet.getInt("VehicleDriverCityID"), resultSet.getString("VehicleDriverCityName"), resultSet.getString("VehicleDriverCityEmail"), resultSet.getInt("VehicleDriverCityPhoneNumber"));
                 vehDriver = new Driver(resultSet.getInt("VehicleDriverID"), resultSet.getString("VehicleDriverNIC"), resultSet.getString("VehicleDriverUsername"), resultSet.getString("VehicleDriverPassword"), resultSet.getString("VehicleDriverFirstName"), resultSet.getString("VehicleDriverLastName"), resultSet.getString("VehicleDriverEmail"), resultSet.getInt("VehicleDriverPhoneNumber"), resultSet.getString("VehicleDriverLoginStatus"), resultSet.getString("VehicleDriverLicenceID"), resultSet.getString("VehicleDriverStatus"), vehicleDriverCity); 
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"));
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getInt("VehicleCapacity"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getString("VehicleStatus"), vehicletype, vehDriver);
                 
                 sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
                 source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
