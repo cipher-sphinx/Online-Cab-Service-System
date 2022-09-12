@@ -49,7 +49,7 @@ public class DriverDB {
             while(resultSet.next()) {
                 // Retrieve by column name
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
             }   
         } catch (SQLException e) {
             System.out.println(e);
@@ -70,7 +70,7 @@ public class DriverDB {
             
             while(resultSet.next()) {
                 city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverStatus"), city);
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"),resultSet.getString("DriverStatus"), city);
                     
                 drivers.add(driver);
             }
@@ -84,7 +84,7 @@ public class DriverDB {
     //ADD driver
     public boolean addDriver(Driver driver) {
         city = new City(driver.getCity().getCityID());
-        query = "INSERT INTO driver(DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, CityID) VALUES ('" + driver.getNic() +  "', '" + driver.getUsername() +  "', '" +  driver.getPassword()  +  "', '" +  driver.getFirstName() +  "', '" +  driver.getLastName() +  "', '" +  driver.getEmail() +  "', '" +  driver.getPhoneNumber() +  "', '" +  driver.getLoginStatus() +  "', '" +  driver.getDriverStatus() +  "', '" + city.getCityID() +  "')";
+        query = "INSERT INTO driver(DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverLicenceID, DriverStatus, CityID) VALUES ('" + driver.getNic() +  "', '" + driver.getUsername() +  "', '" +  driver.getPassword()  +  "', '" +  driver.getFirstName() +  "', '" +  driver.getLastName() +  "', '" +  driver.getEmail() +  "', '" +  driver.getPhoneNumber() +  "', '" +  driver.getLoginStatus() + "', '" + driver.getDriverLicenceID() + "', '" +  driver.getDriverStatus() +  "', '" + city.getCityID() +  "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
@@ -103,7 +103,7 @@ public class DriverDB {
     //UPDATE driver
     public boolean updateDriver(Driver driver) {
         city = new City(driver.getCity().getCityID());
-        query = "UPDATE driver SET DriverNIC = '" + driver.getNic()+ "', DriverUsername = '" + driver.getUsername() + "', DriverPassword = '" + driver.getPassword() + "', DriverFirstName = '" + driver.getFirstName() + "', DriverLastName = '" + driver.getLastName() + "', DriverEmail = '" + driver.getEmail() + "', DriverPhoneNumber = '" + driver.getPhoneNumber() + "', DriverLoginStatus = '" + driver.getLoginStatus() + "', DriverStatus = '" + driver.getDriverStatus() + "', CityID = '"+ city.getCityID() + "' WHERE (`DriverID` = '"  + driver.getId()+ "')";
+        query = "UPDATE driver SET DriverNIC = '" + driver.getNic()+ "', DriverUsername = '" + driver.getUsername() + "', DriverPassword = '" + driver.getPassword() + "', DriverFirstName = '" + driver.getFirstName() + "', DriverLastName = '" + driver.getLastName() + "', DriverEmail = '" + driver.getEmail() + "', DriverPhoneNumber = '" + driver.getPhoneNumber() + "', DriverLoginStatus = '" + driver.getLoginStatus() + "', DriverLicenceID = '" + driver.getDriverLicenceID() + "', DriverStatus = '" + driver.getDriverStatus() + "', CityID = '"+ city.getCityID() + "' WHERE (`DriverID` = '"  + driver.getId()+ "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

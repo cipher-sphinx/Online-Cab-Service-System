@@ -11,19 +11,25 @@ package project.onlinecabservice.service.model;
 public class Vehicle {
     private int vehicleID;
     private String vehicleRegisterID;
-    private String vehicleType;
-    private int vehicleCapacity;
+    private String vehicleNumber;
+    private String vehicleInsuranceID;
+    private String vehicleColour;
     private String vehicleStatus;
+    private VehicleType vehicleType;
     private Driver driver;
+    
 
-    public Vehicle(int vehicleID, String vehicleRegisterID, String vehicleType, int vehicleCapacity, String vehicleStatus, Driver driver) {
+    public Vehicle(int vehicleID, String vehicleRegisterID, String vehicleNumber, String vehicleInsuranceID, String vehicleColour, String vehicleStatus, VehicleType vehicleType, Driver driver) {
         this.vehicleID = vehicleID;
         this.vehicleRegisterID = vehicleRegisterID;
-        this.vehicleType = vehicleType;
-        this.vehicleCapacity = vehicleCapacity;
+        this.vehicleNumber = vehicleNumber;
+        this.vehicleInsuranceID = vehicleInsuranceID;
+        this.vehicleColour = vehicleColour;
         this.vehicleStatus = vehicleStatus;
         this.driver = driver;
+        this.vehicleType = vehicleType;
     }
+
 
     public Vehicle(int vehicleID) {
         this.vehicleID = vehicleID;
@@ -46,22 +52,6 @@ public class Vehicle {
         this.vehicleRegisterID = vehicleRegisterID;
     }
 
-    public String getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public int getVehicleCapacity() {
-        return vehicleCapacity;
-    }
-
-    public void setVehicleCapacity(int vehicleCapacity) {
-        this.vehicleCapacity = vehicleCapacity;
-    }
-
     public String getVehicleStatus() {
         return vehicleStatus;
     }
@@ -76,6 +66,38 @@ public class Vehicle {
 
     public void setDriver(Driver driver) {
         this.driver = driver;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public String getVehicleInsuranceID() {
+        return vehicleInsuranceID;
+    }
+
+    public void setVehicleInsuranceID(String vehicleInsuranceID) {
+        this.vehicleInsuranceID = vehicleInsuranceID;
+    }
+
+    public String getVehicleColour() {
+        return vehicleColour;
+    }
+
+    public void setVehicleColour(String vehicleColour) {
+        this.vehicleColour = vehicleColour;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
     
 }

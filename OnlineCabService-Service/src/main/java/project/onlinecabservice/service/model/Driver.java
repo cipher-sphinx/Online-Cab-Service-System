@@ -9,14 +9,17 @@ package project.onlinecabservice.service.model;
  * @author Sumaiya
  */
 public class Driver extends User{
+    private String DriverLicenceID;
     private String driverStatus;
     private City city;
-    
-    public Driver(int id, String nic, String username, String password, String firstName, String lastName, String email, int phoneNumber, String loginStatus, String driverStatus, City city) {
+
+    public Driver(int id, String nic, String username, String password, String firstName, String lastName, String email, int phoneNumber, String loginStatus, String DriverLicenceID, String driverStatus, City city) {
         super(id, nic, username, password, firstName, lastName, email, phoneNumber, loginStatus);
         this.driverStatus = driverStatus;
+        this.DriverLicenceID = DriverLicenceID;
         this.city = city;
     }
+    
     
     public Driver(int id) {
         super(id);
@@ -38,6 +41,14 @@ public class Driver extends User{
         this.city = city;
     }
 
+    public String getDriverLicenceID() {
+        return DriverLicenceID;
+    }
+
+    public void setDriverLicenceID(String DriverLicenceID) {
+        this.DriverLicenceID = DriverLicenceID;
+    }
+    
     @Override
     public void login() {
     }
@@ -49,6 +60,8 @@ public class Driver extends User{
     @Override
     public void viewProfile() {
     }
+
+    
   
 
 
