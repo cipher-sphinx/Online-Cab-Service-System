@@ -4,9 +4,7 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import project.onlinecabservice.service.model.Admin;
@@ -27,13 +25,32 @@ public class AdminDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
+    //GET an admin by its ID
+    public Admin getAdmin(int id) {
+        return null;
+    }
     
-    Admin admin = null;
-            
+    //GET all admins
+    public List<Admin> getAdmins() {
+        return null;
+    }
     
+    //ADD an admin
+    public boolean addAdmin(Admin admin) {
+        return false;
+    }
+    
+    //UPDATE an admin 
+    public boolean updateAdmin(Admin admin) {
+        return false;
+    }
+    
+    //DELETE an admin
+    public boolean deleteAdmin(int id) {
+        return false;
+    }
+    
+    
+
     
 }

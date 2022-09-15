@@ -28,32 +28,29 @@ public class StreetDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
-    
-    City city = null;
-    Street street = null;
- 
     //GET a street by its ID
     public Street getStreet(int id) {
-        query = "call cabservicedatabase.getStreet(" + id + ")";
-        try {
-            dBInit = DBConnection.getInstance();
-            statement = dBInit.dBConnectionInit();
-            resultSet = statement.executeQuery(query);
-            
-            // Extract data from result set
-            while(resultSet.next()) {
-                // Retrieve by column name
-                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                street = new Street(resultSet.getInt("StreetID"), resultSet.getString("StreetName"), city);
-            }   
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return street;
+        return null;
+    }
+    
+    //GET all streets
+    public List<Street> getStreets() {
+        return null;
+    }
+    
+    //ADD a street
+    public boolean addStreet(Street street) {
+        return false;
+    }
+    
+    //UPDATE a street 
+    public boolean updateStreet(Street street) {
+        return false;
+    }
+    
+    //DELETE a street
+    public boolean deleteStreet(int id) {
+        return false;
     }
     
     

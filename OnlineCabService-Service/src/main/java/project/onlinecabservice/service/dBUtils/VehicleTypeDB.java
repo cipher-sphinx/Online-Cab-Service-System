@@ -28,34 +28,29 @@ public class VehicleTypeDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
-    VehicleType vehicletype = null;
-            
-
-    //GET a vehicletype by its id
+    //GET a vehicletype by its ID
     public VehicleType getVehicleType(int id) {
-        query = "call cabservicedatabase.getVehicleType(" + id + ")";
-        try {
-            dBInit = DBConnection.getInstance();
-            statement = dBInit.dBConnectionInit();
-            
-            resultSet = statement.executeQuery(query);
-            
-            // Extract data from result set
-            while(resultSet.next()) {
-                // Retrieve by column name
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
-            }   
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return vehicletype;
+        return null;
     }
     
+    //GET all vehicletypes
+    public List<VehicleType> getVehicleTypes() {
+        return null;
+    }
     
+    //ADD a vehicletype
+    public boolean addVehicleType(VehicleType vehicletype) {
+        return false;
+    }
     
+    //UPDATE a vehicletype 
+    public boolean updateVehicleType(VehicleType vehicletype) {
+        return false;
+    }
+    
+    //DELETE a vehicletype
+    public boolean deleteVehicleType(int id) {
+        return false;
+    }
     
 }

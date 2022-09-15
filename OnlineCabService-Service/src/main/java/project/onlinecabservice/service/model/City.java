@@ -13,6 +13,12 @@ public class City {
     private String cityName;
     private String cityEmail;
     private int cityPhoneNumber;
+
+    public City(String cityName, String cityEmail, int cityPhoneNumber) {
+        this.cityName = cityName;
+        this.cityEmail = cityEmail;
+        this.cityPhoneNumber = cityPhoneNumber;
+    }
     
  
     public City(int cityID, String cityName) {

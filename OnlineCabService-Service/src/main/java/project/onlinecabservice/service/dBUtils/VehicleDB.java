@@ -30,38 +30,29 @@ public class VehicleDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
-    
-    Driver driver = null;
-    City city = null;
-    VehicleType vehicletype = null;
-    Vehicle vehicle = null;
-            
-
-    //GET a vehicle by its id
+    //GET a vehicle by its ID
     public Vehicle getVehicle(int id) {
-        query = "call cabservicedatabase.getVehicle(" + id + ")";
-        try {
-            dBInit = DBConnection.getInstance();
-            statement = dBInit.dBConnectionInit();
-            
-            resultSet = statement.executeQuery(query);
-            
-            // Extract data from result set
-            while(resultSet.next()) {
-                // Retrieve by column name
-                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
-                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
-                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getString("VehicleStatus"), vehicletype, driver);
-            }   
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return vehicle;
+        return null;
+    }
+    
+    //GET all vehicles
+    public List<Vehicle> getVehicles() {
+        return null;
+    }
+    
+    //ADD a vehicle
+    public boolean addVehicle(Vehicle vehicle) {
+        return false;
+    }
+    
+    //UPDATE a vehicle 
+    public boolean updateVehicle(Vehicle vehicle) {
+        return false;
+    }
+    
+    //DELETE a vehicle
+    public boolean deleteVehicle(int id) {
+        return false;
     }
     
     

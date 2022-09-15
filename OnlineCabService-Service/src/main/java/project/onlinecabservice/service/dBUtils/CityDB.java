@@ -26,30 +26,30 @@ public class CityDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
-    
-    City city = null;
     
     //GET a city by its ID
     public City getCity(int id) {
-        query = "call cabservicedatabase.getCity("+ id + ")";
-        try {
-            dBInit = DBConnection.getInstance();
-            statement = dBInit.dBConnectionInit();
-            resultSet = statement.executeQuery(query);
-            
-            // Extract data from result set
-            while(resultSet.next()) {
-                // Retrieve by column name
-                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-            }   
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return city;
+        return null;
+    }
+    
+    //GET all cities
+    public List<City> getCities() {
+        return null;
+    }
+    
+    //ADD a city
+    public boolean addCity(City city) {
+        return false;
+    }
+    
+    //UPDATE a city 
+    public boolean updateCity(City city) {
+        return false;
+    }
+    
+    //DELETE a city
+    public boolean deleteCity(int id) {
+        return false;
     }
     
     

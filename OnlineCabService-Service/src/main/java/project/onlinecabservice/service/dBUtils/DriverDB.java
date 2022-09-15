@@ -28,33 +28,29 @@ public class DriverDB {
        return instance;
     }
     
-    DBConnection dBInit = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-    String query = "";
-    
-    City city = null;
-    Driver driver = null;        
-
-    //GET a driver by its id
+    //GET a driver by its ID
     public Driver getDriver(int id) {
-        query = "call cabservicedatabase.getDriver(" + id + ")";
-        try {
-            dBInit = DBConnection.getInstance();
-            statement = dBInit.dBConnectionInit();
-            
-            resultSet = statement.executeQuery(query);
-            
-            // Extract data from result set
-            while(resultSet.next()) {
-                // Retrieve by column name
-                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
-                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
-            }   
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return driver;
+        return null;
+    }
+    
+    //GET all drivers
+    public List<Driver> getDrivers() {
+        return null;
+    }
+    
+    //ADD a driver
+    public boolean addDriver(Driver driver) {
+        return false;
+    }
+    
+    //UPDATE a driver 
+    public boolean updateDriver(Driver driver) {
+        return false;
+    }
+    
+    //DELETE a driver
+    public boolean deleteDriver(int id) {
+        return false;
     }
     
     
