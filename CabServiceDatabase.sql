@@ -75,6 +75,8 @@ ALTER TABLE street AUTO_INCREMENT = 75001;
 CREATE TABLE vehicletype (
   TypeID INT AUTO_INCREMENT,
   TypeName VARCHAR(50) NOT NULL,
+  VehicleCapacity INT,
+  PricePerKmInLKR INT,
   CONSTRAINT t_tid_pk PRIMARY KEY (TypeID)
   );
   
@@ -86,7 +88,6 @@ CREATE TABLE vehicle (
   VehicleNumber VARCHAR(45) UNIQUE NOT NULL,
   VehicleInsuranceID VARCHAR(45) UNIQUE NOT NULL,
   VehicleColour VARCHAR(45) NOT NULL,
-  VehicleCapacity INT(20) NULL,
   VehicleStatus VARCHAR(20) NULL,
   DriverID INT,
   TypeID INT,
@@ -292,13 +293,12 @@ INSERT INTO `cabservicedatabase`.`bookinglocation` (`BkSourceID`, `BkDestination
 
 
 
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Flex');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('MiniCar');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Car');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Tuk');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Bike');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('MiniVan');
-INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`) VALUES ('Van');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('Flex', '4', '130');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('Car', '4', '175');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('Tuk', '3', '120');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('Bike', '1', '75');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('MiniVan', '5', '200');
+INSERT INTO `cabservicedatabase`.`vehicletype` (`TypeName`, `VehicleCapacity`, `PricePerKmInLKR`) VALUES ('Van', '6', '225');
 
 -- stored procedures --
 
@@ -407,14 +407,14 @@ DELIMITER $$
 USE `cabservicedatabase`$$
 CREATE PROCEDURE `getAllBookings` ()
 BEGIN
-	SELECT book.BookingID, book.PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
+	SELECT book.BookingID, (typeV.PricePerKmInLKR * bkLoc.BkDistanceInKm) as PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
 		   book.CustomerID, cust.CustomerNIC, cust.CustomerUsername, cust.CustomerPassword, cust.CustomerFirstName, cust.CustomerLastName, cust.CustomerEmail, cust.CustomerPhoneNumber, cust.CustomerLoginStatus, cust.CustomerStatus, 
 		   book.DriverID, driv.DriverNIC, driv.DriverUsername, driv.DriverPassword, driv.DriverFirstName, driv.DriverLastName, driv.DriverEmail, driv.DriverPhoneNumber, driv.DriverLoginStatus, driv.DriverLicenceID, driv.DriverStatus, 
 		   driv.CityID as DriverCityID, drivCity.CityName as DriverCityName, drivCity.CityEmail as DriverCityEmail, drivCity.CityPhoneNumber as DriverCityPhoneNumber, 
-		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleCapacity, veh.VehicleStatus, 
+		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleStatus, 
 		   veh.DriverID as VehicleDriverID, vehDriver.DriverNIC as VehicleDriverNIC, vehDriver.DriverUsername as VehicleDriverUsername, vehDriver.DriverPassword as VehicleDriverPassword, vehDriver.DriverFirstName as VehicleDriverFirstName, vehDriver.DriverLastName as VehicleDriverLastName, vehDriver.DriverEmail as VehicleDriverEmail, vehDriver.DriverPhoneNumber as VehicleDriverPhoneNumber, vehDriver.DriverLoginStatus as VehicleDriverLoginStatus, vehDriver.DriverLicenceID as VehicleDriverLicenceID, vehDriver.DriverStatus as VehicleDriverStatus, 
 		   vehDriver.CityID as VehicleDriverCityID, vehDriverCity.CityName as VehicleDriverCityName, vehDriverCity.CityEmail as VehicleDriverCityEmail, vehDriverCity.CityPhoneNumber as VehicleDriverCityPhoneNumber, 
-		   veh.TypeID, typeV.TypeName,
+		   veh.TypeID, typeV.TypeName, typeV.VehicleCapacity, typeV.PricePerKmInLKR,
            book.BkLocationID , 
 		   bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, 
 		   pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber,
@@ -438,14 +438,14 @@ CREATE PROCEDURE `getBooking` (
 	IN id INT
 )
 BEGIN
-	SELECT book.BookingID, book.PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
+	SELECT book.BookingID, (typeV.PricePerKmInLKR * bkLoc.BkDistanceInKm) as PriceInLKR, book.BookingStatus, book.BookingDateTime, book.Feedback, book.IfAcceptedByDriver, 
 		   book.CustomerID, cust.CustomerNIC, cust.CustomerUsername, cust.CustomerPassword, cust.CustomerFirstName, cust.CustomerLastName, cust.CustomerEmail, cust.CustomerPhoneNumber, cust.CustomerLoginStatus, cust.CustomerStatus, 
 		   book.DriverID, driv.DriverNIC, driv.DriverUsername, driv.DriverPassword, driv.DriverFirstName, driv.DriverLastName, driv.DriverEmail, driv.DriverPhoneNumber, driv.DriverLoginStatus, driv.DriverLicenceID, driv.DriverStatus, 
 		   driv.CityID as DriverCityID, drivCity.CityName as DriverCityName, drivCity.CityEmail as DriverCityEmail, drivCity.CityPhoneNumber as DriverCityPhoneNumber, 
-		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleCapacity, veh.VehicleStatus, 
+		   book.VehicleID, veh.VehicleRegisterID, veh.VehicleNumber, veh.VehicleInsuranceID, veh.VehicleColour, veh.VehicleStatus, 
 		   veh.DriverID as VehicleDriverID, vehDriver.DriverNIC as VehicleDriverNIC, vehDriver.DriverUsername as VehicleDriverUsername, vehDriver.DriverPassword as VehicleDriverPassword, vehDriver.DriverFirstName as VehicleDriverFirstName, vehDriver.DriverLastName as VehicleDriverLastName, vehDriver.DriverEmail as VehicleDriverEmail, vehDriver.DriverPhoneNumber as VehicleDriverPhoneNumber, vehDriver.DriverLoginStatus as VehicleDriverLoginStatus, vehDriver.DriverLicenceID as VehicleDriverLicenceID, vehDriver.DriverStatus as VehicleDriverStatus, 
 		   vehDriver.CityID as VehicleDriverCityID, vehDriverCity.CityName as VehicleDriverCityName, vehDriverCity.CityEmail as VehicleDriverCityEmail, vehDriverCity.CityPhoneNumber as VehicleDriverCityPhoneNumber, 
-		   veh.TypeID, typeV.TypeName,
+		   veh.TypeID, typeV.TypeName, typeV.VehicleCapacity, typeV.PricePerKmInLKR,
            book.BkLocationID , 
 		   bkLoc.BkSourceID as SourceID, pickup.StreetName as SourceName, 
 		   pickup.CityID as SourceCityID, pickupCity.CityName as SourceCityName, pickupCity.CityEmail as SourceCityEmail, pickupCity.CityPhoneNumber as SourceCityPhoneNumber,
@@ -592,7 +592,7 @@ DELIMITER $$
 USE `cabservicedatabase`$$
 CREATE PROCEDURE `getAllDrivers` ()
 BEGIN
-	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
+	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverLicenceID, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
 	FROM driver driverV 
 	JOIN city cityV ON driverV.CityID = cityV.CityID;
 END$$
@@ -611,7 +611,7 @@ CREATE PROCEDURE `getDriver` (
 	IN id INT
 )
 BEGIN
-	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
+	SELECT DriverID, DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverLicenceID, DriverStatus, driverV.CityID, cityV.CityName, cityV.CityEmail, cityV.CityPhoneNumber 
 	FROM driver driverV 
 	JOIN city cityV ON driverV.CityID = cityV.CityID
 	WHERE DriverID = id;
@@ -702,11 +702,11 @@ DELIMITER $$
 USE `cabservicedatabase`$$
 CREATE PROCEDURE `getAllVehicles` ()
 BEGIN
-	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleCapacity, vehicleV.VehicleStatus, 
-	       vehicleV.TypeID, typeV.TypeName,
-           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus
-	FROM vehicle vehicleV, driver driverV, vehicletype typeV
-	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID;
+	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleStatus, 
+	       vehicleV.TypeID, typeV.TypeName, typeV.VehicleCapacity, typeV.PricePerKmInLKR,
+           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus, driverV.CityID, cityV.CityName, cityV.CityPhoneNumber, cityV.CityEmail
+	FROM vehicle vehicleV, driver driverV, vehicletype typeV, city cityV
+	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID AND driverV.CityID = cityV.CityID;
 END$$
 
 DELIMITER ;
@@ -723,11 +723,11 @@ CREATE PROCEDURE `getVehicle` (
 	IN id INT
 )
 BEGIN
-	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleCapacity, vehicleV.VehicleStatus, 
-	       vehicleV.TypeID, typeV.TypeName,
-           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus
-	FROM vehicle vehicleV, driver driverV, vehicletype typeV
-	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID
+	SELECT  vehicleV.VehicleID, vehicleV.VehicleRegisterID, vehicleV.VehicleNumber, vehicleV.VehicleInsuranceID, vehicleV.VehicleColour, vehicleV.VehicleStatus, 
+	       vehicleV.TypeID, typeV.TypeName, typeV.VehicleCapacity, typeV.PricePerKmInLKR,
+           vehicleV.DriverID, driverV.DriverNIC, driverV.DriverUsername, driverV.DriverPassword, driverV.DriverFirstName, driverV.DriverLastName, driverV.DriverEmail, driverV.DriverPhoneNumber, driverV.DriverLoginStatus, driverV.DriverLicenceID, driverV.DriverStatus, driverV.CityID, cityV.CityName, cityV.CityPhoneNumber, cityV.CityEmail
+	FROM vehicle vehicleV, driver driverV, vehicletype typeV, city cityV
+	WHERE vehicleV.DriverID = driverV.DriverID AND vehicleV.TypeID = typeV.TypeID AND driverV.CityID = cityV.CityID
 	AND VehicleID = id;
 END$$
 
