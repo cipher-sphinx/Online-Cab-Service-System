@@ -59,7 +59,24 @@ public class DriverDB {
     
     //GET all drivers
     public List<Driver> getDrivers() {
-        return null;
+        List<Driver> drivers = new ArrayList<>();
+        query = "call cabservicedatabase.getAllDrivers()" ;
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"),resultSet.getString("DriverStatus"), city);
+                    
+                drivers.add(driver);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return drivers;
     }
     
     //ADD driver

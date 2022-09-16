@@ -57,7 +57,22 @@ public class VehicleTypeDB {
     
     //GET all vehicletypes
     public List<VehicleType> getVehicleTypes() {
-        return null;
+        List<VehicleType> vehicletypes = new ArrayList<>();
+        query = "call cabservicedatabase.getAllVehicleTypes()" ;
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
+                vehicletypes.add(vehicletype);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return vehicletypes;
     }
     
     //ADD vehicletype

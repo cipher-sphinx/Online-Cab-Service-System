@@ -54,7 +54,23 @@ public class AdminDB {
     
     //GET all admins
     public List<Admin> getAdmins() {
-        return null;
+        List<Admin> admins = new ArrayList<>();
+        query = "call cabservicedatabase.getAllAdmins()";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                admin = new Admin(resultSet.getInt("AdminID"), resultSet.getString("AdminNIC"), resultSet.getString("AdminUsername"), resultSet.getString("AdminPassword"), resultSet.getString("AdminFirstName"), resultSet.getString("AdminLastName"), resultSet.getString("AdminEmail"), resultSet.getInt("AdminPhoneNumber"), resultSet.getString("AdminLoginStatus"));
+                    
+                admins.add(admin);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return admins;
     }
     
     //ADD admin

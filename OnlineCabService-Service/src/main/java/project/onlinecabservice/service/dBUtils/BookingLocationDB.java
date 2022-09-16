@@ -66,9 +66,28 @@ public class BookingLocationDB {
         return bookinglocation;
     }
     
-    //GET all bookinglocations
+    //GET all bookinglocation
     public List<BookingLocation> getBookingLocations() {
-        return null;
+        List<BookingLocation> bookinglocations = new ArrayList<>();
+        query = "call cabservicedatabase.getAllBookingLocation()" ;
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
+                source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
+                destCity = new City(resultSet.getInt("DestinationCityID"), resultSet.getString("DestinationCityName"), resultSet.getString("DestinationCityEmail"), resultSet.getInt("DestinationCityPhoneNumber"));
+                destination = new Street(resultSet.getInt("DestinationID"), resultSet.getString("DestinationName"), destCity);
+                bookinglocation = new BookingLocation(resultSet.getInt("BkLocationID"), source, destination, resultSet.getInt("BkDistanceInKm"));                
+                bookinglocations.add(bookinglocation);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return bookinglocations;
     }
     
     //ADD bookinglocation

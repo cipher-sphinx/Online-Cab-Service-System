@@ -66,7 +66,25 @@ public class VehicleDB {
     
     //GET all vehicles
     public List<Vehicle> getVehicles() {
-        return null;
+        List<Vehicle> vehicles = new ArrayList<>();
+        query = "call cabservicedatabase.getAllVehicles()" ;
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getString("VehicleStatus"), vehicletype, driver);                
+                vehicles.add(vehicle);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return vehicles;
     }
     
     //ADD vehicle

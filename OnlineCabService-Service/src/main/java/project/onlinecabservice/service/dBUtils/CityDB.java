@@ -55,7 +55,22 @@ public class CityDB {
     
     //GET all cities
     public List<City> getCities() {
-        return null;
+        List<City> cities = new ArrayList<>();
+        query = "call cabservicedatabase.getAllCities()";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return cities;
     }
     
     //ADD city

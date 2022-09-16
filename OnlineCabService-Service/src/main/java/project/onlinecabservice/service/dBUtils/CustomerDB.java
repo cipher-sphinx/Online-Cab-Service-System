@@ -55,7 +55,23 @@ public class CustomerDB {
     
     //GET all customers
     public List<Customer> getCustomers() {
-        return null;
+        List<Customer> customers = new ArrayList<>();
+        query = "call cabservicedatabase.getAllcustomers()";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()) {
+                customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"), resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
+                    
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+        return customers;
     }
     
     //ADD customer
