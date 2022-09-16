@@ -30,9 +30,38 @@ public class VehicleDB {
        return instance;
     }
     
-    //GET a vehicle by its ID
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    Driver driver = null;
+    City city = null;
+    VehicleType vehicletype = null;
+    Vehicle vehicle = null;
+            
+
+    //GET a vehicle by its id
     public Vehicle getVehicle(int id) {
-        return null;
+        query = "call cabservicedatabase.getVehicle(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
+                vehicletype = new VehicleType(resultSet.getInt("TypeID"), resultSet.getString("TypeName"), resultSet.getInt("VehicleCapacity"), resultSet.getInt("PricePerKmInLKR"));
+                vehicle = new Vehicle(resultSet.getInt("VehicleID"), resultSet.getString("VehicleRegisterID"), resultSet.getString("VehicleNumber"), resultSet.getString("VehicleInsuranceID"), resultSet.getString("VehicleColour"), resultSet.getString("VehicleStatus"), vehicletype, driver);
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return vehicle;
     }
     
     //GET all vehicles

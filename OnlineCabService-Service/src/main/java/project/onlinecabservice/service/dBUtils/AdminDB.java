@@ -25,9 +25,31 @@ public class AdminDB {
        return instance;
     }
     
-    //GET an admin by its ID
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    Admin admin = null;
+            
+    //GET an admin by its id
     public Admin getAdmin(int id) {
-        return null;
+        query = "call cabservicedatabase.getAdmin(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                admin = new Admin(resultSet.getInt("AdminID"), resultSet.getString("AdminNIC"), resultSet.getString("AdminUsername"), resultSet.getString("AdminPassword"), resultSet.getString("AdminFirstName"), resultSet.getString("AdminLastName"), resultSet.getString("AdminEmail"), resultSet.getInt("AdminPhoneNumber"), resultSet.getString("AdminLoginStatus"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return admin;
     }
     
     //GET all admins

@@ -28,9 +28,33 @@ public class DriverDB {
        return instance;
     }
     
-    //GET a driver by its ID
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    City city = null;
+    Driver driver = null;        
+
+    //GET a driver by its id
     public Driver getDriver(int id) {
-        return null;
+        query = "call cabservicedatabase.getDriver(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return driver;
     }
     
     //GET all drivers

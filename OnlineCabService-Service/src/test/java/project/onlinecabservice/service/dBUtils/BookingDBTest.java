@@ -69,7 +69,7 @@ public class BookingDBTest {
         Street bookinglocationdestination = new Street(75032, "Colombo 2", bookinglocationcitydestination);
         BookingLocation bookinglocation = new BookingLocation(83121, bookinglocationsource, bookinglocationdestination, 10);
         
-        Booking expResult = new Booking(93002, 677, "completed", "17/9/2022-12:09", "Had a great time", "accepted", customer, driver, vehicle, bookinglocation);
+        Booking expResult = new Booking(93002, 750, "completed", "17/9/2022-12:09", "Had a great time", "accepted", customer, driver, vehicle, bookinglocation);
         Booking result = instance.getBooking(id);
         
         assertEquals(expResult.getBookingID(), result.getBookingID());

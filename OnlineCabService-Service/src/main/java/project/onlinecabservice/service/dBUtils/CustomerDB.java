@@ -26,9 +26,31 @@ public class CustomerDB {
        return instance;
     }
     
-    //GET a customer by its ID
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    Customer customer = null;   
+    
+    //GET a customer by its id
     public Customer getCustomer(int id) {
-        return null;
+        query = "call cabservicedatabase.getCustomer(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"), resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return customer;
     }
     
     //GET all customers

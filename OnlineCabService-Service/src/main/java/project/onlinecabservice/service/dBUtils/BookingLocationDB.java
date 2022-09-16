@@ -30,9 +30,40 @@ public class BookingLocationDB {
        return instance;
     }
     
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    City sourceCity = null;
+    Street source = null;
+    
+    City destCity = null;
+    Street destination = null;
+    
+    BookingLocation bookinglocation = null;
+ 
     //GET a bookinglocation by its ID
     public BookingLocation getBookingLocation(int id) {
-        return null;
+        query = "call cabservicedatabase.getBookingLocation(" + id +")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                sourceCity = new City(resultSet.getInt("SourceCityID"), resultSet.getString("SourceCityName"), resultSet.getString("SourceCityEmail"), resultSet.getInt("SourceCityPhoneNumber"));
+                source = new Street(resultSet.getInt("SourceID"), resultSet.getString("SourceName"), sourceCity);
+                destCity = new City(resultSet.getInt("DestinationCityID"), resultSet.getString("DestinationCityName"), resultSet.getString("DestinationCityEmail"), resultSet.getInt("DestinationCityPhoneNumber"));
+                destination = new Street(resultSet.getInt("DestinationID"), resultSet.getString("DestinationName"), destCity);
+                bookinglocation = new BookingLocation(resultSet.getInt("BkLocationID"), source, destination, resultSet.getInt("BkDistanceInKm"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return bookinglocation;
     }
     
     //GET all bookinglocations

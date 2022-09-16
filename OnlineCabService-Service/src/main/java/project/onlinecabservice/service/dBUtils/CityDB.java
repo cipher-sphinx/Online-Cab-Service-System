@@ -27,9 +27,30 @@ public class CityDB {
     }
     
     
+    DBConnection dBInit = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    String query = "";
+    
+    City city = null;
+    
     //GET a city by its ID
     public City getCity(int id) {
-        return null;
+        query = "call cabservicedatabase.getCity("+ id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return city;
     }
     
     //GET all cities
