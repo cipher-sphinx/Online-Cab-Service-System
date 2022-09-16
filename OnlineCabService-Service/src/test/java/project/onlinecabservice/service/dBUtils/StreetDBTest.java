@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -68,11 +67,21 @@ public class StreetDBTest {
     @Test
     public void testAddStreet() {
         System.out.println("addStreet");
-        Street street = null;
+        
+        City city = new City(65016, "Weligama", "weligama@onlinecabservice.com", 1239865712);
+        Street street = new Street(75037, "Weligama 1", city);
+        
         StreetDB instance = StreetDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addStreet(street);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Street resultStreet = instance.getStreet(65015);
+        
+        assertEquals(street.getStreetID(), resultStreet.getStreetID());
+        assertEquals(street.getStreetName(), resultStreet.getStreetName());
+        assertEquals(street.getCity().getCityID(), resultStreet.getCity().getCityID());
     }
 
     /**
@@ -81,11 +90,22 @@ public class StreetDBTest {
     @Test
     public void testUpdateStreet() {
         System.out.println("updateStreet");
-        Street street = null;
+        
+        City city = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street street = new Street(75033, "HambantotaUpdated 1", city);
+        
         StreetDB instance = StreetDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateStreet(street);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Street resultStreet = instance.getStreet(75033);
+        
+        assertEquals(street.getStreetID(), resultStreet.getStreetID());
+        assertEquals(street.getStreetName(), resultStreet.getStreetName());
+        assertEquals(street.getCity().getCityID(), resultStreet.getCity().getCityID());
+        
     }
 
     /**
@@ -94,7 +114,7 @@ public class StreetDBTest {
     @Test
     public void testDeleteStreet() {
         System.out.println("deleteStreet");
-        int id = 0;
+        int id = 75036;
         StreetDB instance = StreetDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteStreet(id);

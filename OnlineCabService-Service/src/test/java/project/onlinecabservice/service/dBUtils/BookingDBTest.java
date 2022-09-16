@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -159,11 +158,42 @@ public class BookingDBTest {
     @Test
     public void testAddBooking() {
         System.out.println("addBooking");
-        Booking booking = null;
+        
+        Customer customer = new Customer(32002, "V64487", "stevezoro", "z1o1r1o1", "Steve", "Zoro", "steve@gmail.com", 1234568750, "logged in", "idle");
+
+        City drivercity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Driver driver = new Driver(52004, "V746", "manhulkUpdated", "neo76", "Neo", "Manny", "manny@gmail.com", 1243823456, "logged in", "564R76587", "available", drivercity);
+        
+        VehicleType vehicletype = new VehicleType(57010, "CycleUpdated", 1, 30);
+        City vehicledrivercity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Driver vehicledriver = new Driver(52004, "V746", "manhulkUpdated", "neo76", "Neo", "Manny", "manny@gmail.com", 1243823456, "logged in", "564R76587", "available", vehicledrivercity);
+        Vehicle vehicle = new Vehicle(27001, "675TY76Updated", "SP7868", "76576R68786", "black", "available", vehicletype, vehicledriver);
+        
+        City sourcecity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street source = new Street(75033, "HambantotaUpdated 1", sourcecity);        
+        City destinationcity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street destination = new Street(75034, "Hambantota 2", destinationcity);        
+        BookingLocation bookinglocation = new BookingLocation(83122, source, destination, 15);
+        
+        Booking booking = new Booking(93003, 123, "completed", "17/6/2022-12:09", "awsome", "accepted", customer, driver, vehicle, bookinglocation);
         BookingDB instance = BookingDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addBooking(booking);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Booking resultBooking = instance.getBooking(0);
+        
+        assertEquals(booking.getBookingID(), resultBooking.getBookingID());
+        assertEquals(booking.getBookingStatus(), resultBooking.getBookingStatus());
+        assertEquals(booking.getBookingDateTime(), resultBooking.getBookingDateTime());
+        assertEquals(booking.getFeedback(), resultBooking.getFeedback());
+        assertEquals(booking.getPriceInLKR(), resultBooking.getPriceInLKR());
+        assertEquals(booking.getIfAcceptedByDriver(), resultBooking.getIfAcceptedByDriver());
+        assertEquals(booking.getCustomer().getId(), resultBooking.getCustomer().getId());
+        assertEquals(booking.getDriver().getId(), resultBooking.getDriver().getId());
+        assertEquals(booking.getVehicle().getVehicleID(), resultBooking.getVehicle().getVehicleID());
+        assertEquals(booking.getBookingLocations().getBookingLocationID(), resultBooking.getBookingLocations().getBookingLocationID());
     }
 
     /**
@@ -172,11 +202,44 @@ public class BookingDBTest {
     @Test
     public void testUpdateBooking() {
         System.out.println("updateBooking");
-        Booking booking = null;
+        
+        Customer customer = new Customer(32002, "V64487", "stevezoro", "z1o1r1o1", "Steve", "Zoro", "steve@gmail.com", 1234568750, "logged in", "idle");
+
+        City drivercity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Driver driver = new Driver(52004, "V746", "manhulkUpdated", "neo76", "Neo", "Manny", "manny@gmail.com", 1243823456, "logged in", "564R76587", "available", drivercity);
+        
+        VehicleType vehicletype = new VehicleType(57010, "CycleUpdated", 1, 30);
+        City vehicledrivercity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Driver vehicledriver = new Driver(52004, "V746", "manhulkUpdated", "neo76", "Neo", "Manny", "manny@gmail.com", 1243823456, "logged in", "564R76587", "available", vehicledrivercity);
+        Vehicle vehicle = new Vehicle(27001, "675TY76Updated", "SP7868", "76576R68786", "black", "available", vehicletype, vehicledriver);
+        
+        City sourcecity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street source = new Street(75033, "HambantotaUpdated 1", sourcecity);        
+        City destinationcity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street destination = new Street(75034, "Hambantota 2", destinationcity);        
+        BookingLocation bookinglocation = new BookingLocation(83122, source, destination, 15);
+        
+        Booking booking = new Booking(93003, 123, "completed", "17/6/2022-12:09", "awsome", "accepted", customer, driver, vehicle, bookinglocation);
         BookingDB instance = BookingDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateBooking(booking);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Booking resultBooking = instance.getBooking(0);
+        
+        assertEquals(booking.getBookingID(), resultBooking.getBookingID());
+        assertEquals(booking.getBookingStatus(), resultBooking.getBookingStatus());
+        assertEquals(booking.getBookingDateTime(), resultBooking.getBookingDateTime());
+        assertEquals(booking.getFeedback(), resultBooking.getFeedback());
+        assertEquals(booking.getPriceInLKR(), resultBooking.getPriceInLKR());
+        assertEquals(booking.getIfAcceptedByDriver(), resultBooking.getIfAcceptedByDriver());
+        assertEquals(booking.getCustomer().getId(), resultBooking.getCustomer().getId());
+        assertEquals(booking.getDriver().getId(), resultBooking.getDriver().getId());
+        assertEquals(booking.getVehicle().getVehicleID(), resultBooking.getVehicle().getVehicleID());
+        assertEquals(booking.getBookingLocations().getBookingLocationID(), resultBooking.getBookingLocations().getBookingLocationID());
+        
+
     }
 
     /**
@@ -185,10 +248,9 @@ public class BookingDBTest {
     @Test
     public void testDeleteBooking() {
         System.out.println("deleteBooking");
-        int id = 0;
+        int id = 93002;
         BookingDB instance = BookingDB.getInstance();
         boolean expResult = true;
-        
         boolean result = instance.deleteBooking(id);
         assertEquals(expResult, result);
     }

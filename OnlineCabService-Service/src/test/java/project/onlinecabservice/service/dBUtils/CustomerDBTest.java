@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -68,11 +67,25 @@ public class CustomerDBTest {
     @Test
     public void testAddCustomer() {
         System.out.println("addCustomer");
-        Customer customer = null;
+        Customer customer = new Customer(32004, "V64323", "anncat", "anna647", "Anne", "Catty", "ancat@gmail.com", 1234595327, "logged in", "idle");
         CustomerDB instance = CustomerDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addCustomer(customer);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Customer resultCustomer = instance.getCustomer(32004);
+        
+        assertEquals(customer.getId(), resultCustomer.getId());
+        assertEquals(customer.getNic(), resultCustomer.getNic());
+        assertEquals(customer.getUsername(), resultCustomer.getUsername());
+        assertEquals(customer.getPassword(), resultCustomer.getPassword());
+        assertEquals(customer.getFirstName(), resultCustomer.getFirstName());
+        assertEquals(customer.getLastName(), resultCustomer.getLastName());
+        assertEquals(customer.getEmail(), resultCustomer.getEmail());
+        assertEquals(customer.getPhoneNumber(), resultCustomer.getPhoneNumber());
+        assertEquals(customer.getLoginStatus(), resultCustomer.getLoginStatus());
+        assertEquals(customer.getCustomerStatus(), resultCustomer.getCustomerStatus());
     }
 
     /**
@@ -81,11 +94,25 @@ public class CustomerDBTest {
     @Test
     public void testUpdateCustomer() {
         System.out.println("updateCustomer");
-        Customer customer = null;
+        Customer customer = new Customer(32002, "V64487", "stevezoro", "z1o1r1o1", "Steve", "Zoro", "steve@gmail.com", 1234568750, "logged in", "idle");
         CustomerDB instance = CustomerDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateCustomer(customer);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Customer resultCustomer = instance.getCustomer(32002);
+        
+        assertEquals(customer.getId(), resultCustomer.getId());
+        assertEquals(customer.getNic(), resultCustomer.getNic());
+        assertEquals(customer.getUsername(), resultCustomer.getUsername());
+        assertEquals(customer.getPassword(), resultCustomer.getPassword());
+        assertEquals(customer.getFirstName(), resultCustomer.getFirstName());
+        assertEquals(customer.getLastName(), resultCustomer.getLastName());
+        assertEquals(customer.getEmail(), resultCustomer.getEmail());
+        assertEquals(customer.getPhoneNumber(), resultCustomer.getPhoneNumber());
+        assertEquals(customer.getLoginStatus(), resultCustomer.getLoginStatus());
+        assertEquals(customer.getCustomerStatus(), resultCustomer.getCustomerStatus());
     }
 
     /**
@@ -94,7 +121,7 @@ public class CustomerDBTest {
     @Test
     public void testDeleteCustomer() {
         System.out.println("deleteCustomer");
-        int id = 0;
+        int id = 32001;
         CustomerDB instance = CustomerDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteCustomer(id);

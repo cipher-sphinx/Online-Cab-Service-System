@@ -33,8 +33,6 @@ public class City {
         this.cityPhoneNumber = cityPhoneNumber;
     }
 
-
-
     public City(int cityID) {
         this.cityID = cityID;
     }

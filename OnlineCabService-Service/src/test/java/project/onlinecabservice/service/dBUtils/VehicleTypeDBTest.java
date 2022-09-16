@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,11 +62,20 @@ public class VehicleTypeDBTest {
     @Test
     public void testAddVehicleType() {
         System.out.println("addVehicleType");
-        VehicleType vehicletype = null;
+        VehicleType vehicletype = new VehicleType(57011, "Jeep", 5, 500);
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addVehicleType(vehicletype);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        VehicleType resultVehicleType = instance.getVehicleType(57011);
+        
+        assertEquals(vehicletype.getTypeID(), resultVehicleType.getTypeID());
+        assertEquals(vehicletype.getTypeName(), resultVehicleType.getTypeName());
+        assertEquals(vehicletype.getVehicleCapacity(), resultVehicleType.getVehicleCapacity());
+        assertEquals(vehicletype.getPricePerKmInLKR(), resultVehicleType.getPricePerKmInLKR());
+        
     }
 
     /**
@@ -76,11 +84,19 @@ public class VehicleTypeDBTest {
     @Test
     public void testUpdateVehicleType() {
         System.out.println("updateVehicleType");
-        VehicleType vehicletype = null;
+        VehicleType vehicletype = new VehicleType(57010, "CycleUpdated", 1, 30);
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateVehicleType(vehicletype);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        VehicleType resultVehicleType = instance.getVehicleType(57010);
+        
+        assertEquals(vehicletype.getTypeID(), resultVehicleType.getTypeID());
+        assertEquals(vehicletype.getTypeName(), resultVehicleType.getTypeName());
+        assertEquals(vehicletype.getVehicleCapacity(), resultVehicleType.getVehicleCapacity());
+        assertEquals(vehicletype.getPricePerKmInLKR(), resultVehicleType.getPricePerKmInLKR());
     }
 
     /**
@@ -89,7 +105,7 @@ public class VehicleTypeDBTest {
     @Test
     public void testDeleteVehicleType() {
         System.out.println("deleteVehicleType");
-        int id = 0;
+        int id = 57009;
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteVehicleType(id);

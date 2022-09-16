@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -75,11 +74,29 @@ public class DriverDBTest {
     @Test
     public void testAddDriver() {
         System.out.println("addDriver");
-        Driver driver = null;
+        
+        City city = new City(65016, "Weligama", "weligama@onlinecabservice.com", 1239865712);
+        Driver driver = new Driver(52011, "V098", "asian", "may23", "May", "Nick", "nick@gmail.com", 1243826833, "logged in", "562321587", "available", city);
+        
         DriverDB instance = DriverDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addDriver(driver);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Driver resultDriver = instance.getDriver(52011);
+        
+        assertEquals(driver.getId(), resultDriver.getId());
+        assertEquals(driver.getNic(), resultDriver.getNic());
+        assertEquals(driver.getUsername(), resultDriver.getUsername());
+        assertEquals(driver.getPassword(), resultDriver.getPassword());
+        assertEquals(driver.getFirstName(), resultDriver.getFirstName());
+        assertEquals(driver.getLastName(), resultDriver.getLastName());
+        assertEquals(driver.getEmail(), resultDriver.getEmail());
+        assertEquals(driver.getPhoneNumber(), resultDriver.getPhoneNumber());
+        assertEquals(driver.getLoginStatus(), resultDriver.getLoginStatus());
+        assertEquals(driver.getDriverStatus(), resultDriver.getDriverStatus());
+        assertEquals(driver.getCity().getCityID(), resultDriver.getCity().getCityID());
     }
 
     /**
@@ -88,11 +105,29 @@ public class DriverDBTest {
     @Test
     public void testUpdateDriver() {
         System.out.println("updateDriver");
-        Driver driver = null;
+        
+        City city = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Driver driver = new Driver(52004, "V746", "manhulkUpdated", "neo76", "Neo", "Manny", "manny@gmail.com", 1243823456, "logged in", "564R76587", "available", city);
+        
         DriverDB instance = DriverDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateDriver(driver);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Driver resultDriver = instance.getDriver(52004);
+        
+        assertEquals(driver.getId(), resultDriver.getId());
+        assertEquals(driver.getNic(), resultDriver.getNic());
+        assertEquals(driver.getUsername(), resultDriver.getUsername());
+        assertEquals(driver.getPassword(), resultDriver.getPassword());
+        assertEquals(driver.getFirstName(), resultDriver.getFirstName());
+        assertEquals(driver.getLastName(), resultDriver.getLastName());
+        assertEquals(driver.getEmail(), resultDriver.getEmail());
+        assertEquals(driver.getPhoneNumber(), resultDriver.getPhoneNumber());
+        assertEquals(driver.getLoginStatus(), resultDriver.getLoginStatus());
+        assertEquals(driver.getDriverStatus(), resultDriver.getDriverStatus());
+        assertEquals(driver.getCity().getCityID(), resultDriver.getCity().getCityID());
     }
 
     /**
@@ -101,7 +136,7 @@ public class DriverDBTest {
     @Test
     public void testDeleteDriver() {
         System.out.println("deleteDriver");
-        int id = 0;
+        int id = 52010;
         DriverDB instance = DriverDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteDriver(id);

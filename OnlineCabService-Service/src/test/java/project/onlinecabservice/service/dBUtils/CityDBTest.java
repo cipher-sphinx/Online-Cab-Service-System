@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,11 +62,21 @@ public class CityDBTest {
     @Test
     public void testAddCity() {
         System.out.println("addCity");
-        City city = new City("AddCity", "addcity@onlinecabservice.com", 1239865712);
+        City city = new City(65016, "Weligama", "weligama@onlinecabservice.com", 1239865712);
         CityDB instance = CityDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addCity(city);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        City resultCity = instance.getCity(65016);
+        
+        assertEquals(city.getCityID(), resultCity.getCityID());
+        assertEquals(city.getCityName(), resultCity.getCityName());
+        assertEquals(city.getCityEmail(), resultCity.getCityEmail());
+        assertEquals(city.getCityPhoneNumber(), resultCity.getCityPhoneNumber());
+        
+        
        
     }
 
@@ -77,11 +86,19 @@ public class CityDBTest {
     @Test
     public void testUpdateCity() {
         System.out.println("updateCity");
-        City city = null;
+        City city = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
         CityDB instance = CityDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateCity(city);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        City resultCity = instance.getCity(65014);
+        
+        assertEquals(city.getCityID(), resultCity.getCityID());
+        assertEquals(city.getCityName(), resultCity.getCityName());
+        assertEquals(city.getCityEmail(), resultCity.getCityEmail());
+        assertEquals(city.getCityPhoneNumber(), resultCity.getCityPhoneNumber());
     }
 
     /**
@@ -90,7 +107,7 @@ public class CityDBTest {
     @Test
     public void testDeleteCity() {
         System.out.println("deleteCity");
-        int id = 0;
+        int id = 65015;
         CityDB instance = CityDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteCity(id);

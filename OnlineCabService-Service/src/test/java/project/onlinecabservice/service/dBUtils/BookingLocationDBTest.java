@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -85,11 +84,27 @@ public class BookingLocationDBTest {
     @Test
     public void testAddBookingLocation() {
         System.out.println("addBookingLocation");
-        BookingLocation bookinglocation = null;
+        
+        City sourcecity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street source = new Street(75033, "HambantotaUpdated 1", sourcecity);
+        
+        City destinationcity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street destination = new Street(75034, "Hambantota 2", destinationcity);
+        
+        BookingLocation bookinglocation = new BookingLocation(75036, source, destination, 15);
+        
         BookingLocationDB instance = BookingLocationDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addBookingLocation(bookinglocation);
         assertEquals(expResult, result);
+
+        //getting the object back to check the fields properly        
+        BookingLocation resultBookingLocation = instance.getBookingLocation(0);
+        
+        assertEquals(bookinglocation.getBookingLocationID(), resultBookingLocation.getBookingLocationID());
+        assertEquals(bookinglocation.getSource().getStreetID(), resultBookingLocation.getSource().getStreetID());
+        assertEquals(bookinglocation.getDestination().getStreetID(), resultBookingLocation.getDestination().getStreetID());
+        assertEquals(bookinglocation.getDistanceInKm(), resultBookingLocation.getDistanceInKm());
     }
 
     /**
@@ -98,11 +113,27 @@ public class BookingLocationDBTest {
     @Test
     public void testUpdateBookingLocation() {
         System.out.println("updateBookingLocation");
-        BookingLocation bookinglocation = null;
+        
+        City sourcecity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street source = new Street(75033, "HambantotaUpdated 1", sourcecity);
+        
+        City destinationcity = new City(65014, "HambantotaUpdated", "hamban@onlinecabservice.com", 117587555);
+        Street destination = new Street(75034, "Hambantota 2", destinationcity);
+        
+        BookingLocation bookinglocation = new BookingLocation(83122, source, destination, 15);
         BookingLocationDB instance = BookingLocationDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateBookingLocation(bookinglocation);
         assertEquals(expResult, result);
+
+        //getting the object back to check the fields properly        
+        BookingLocation resultBookingLocation = instance.getBookingLocation(83122);
+        
+        assertEquals(bookinglocation.getBookingLocationID(), resultBookingLocation.getBookingLocationID());
+        assertEquals(bookinglocation.getSource().getStreetID(), resultBookingLocation.getSource().getStreetID());
+        assertEquals(bookinglocation.getDestination().getStreetID(), resultBookingLocation.getDestination().getStreetID());
+        assertEquals(bookinglocation.getDistanceInKm(), resultBookingLocation.getDistanceInKm());
+        
     }
 
     /**
@@ -111,7 +142,7 @@ public class BookingLocationDBTest {
     @Test
     public void testDeleteBookingLocation() {
         System.out.println("deleteBookingLocation");
-        int id = 0;
+        int id = 83123;
         BookingLocationDB instance = BookingLocationDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteBookingLocation(id);

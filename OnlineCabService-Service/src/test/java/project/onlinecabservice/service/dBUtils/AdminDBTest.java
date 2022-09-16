@@ -4,7 +4,6 @@
  */
 package project.onlinecabservice.service.dBUtils;
 
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -67,11 +66,25 @@ public class AdminDBTest {
     @Test
     public void testAddAdmin() {
         System.out.println("addAdmin");
-        Admin admin = null;
+        Admin admin = new Admin(42007, "V6758", "monicamas", "monica7647", "Monica", "Sam", "monica@gmail.com", 116546575, "logged in");
         AdminDB instance = AdminDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addAdmin(admin);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Admin resultAdmin = instance.getAdmin(42007);
+        
+        assertEquals(admin.getId(), resultAdmin.getId());
+        assertEquals(admin.getNic(), resultAdmin.getNic());
+        assertEquals(admin.getUsername(), resultAdmin.getUsername());
+        assertEquals(admin.getPassword(), resultAdmin.getPassword());
+        assertEquals(admin.getFirstName(), resultAdmin.getFirstName());
+        assertEquals(admin.getLastName(), resultAdmin.getLastName());
+        assertEquals(admin.getEmail(), resultAdmin.getEmail());
+        assertEquals(admin.getPhoneNumber(), resultAdmin.getPhoneNumber());
+        assertEquals(admin.getLoginStatus(), resultAdmin.getLoginStatus());
+
     }
 
     /**
@@ -80,11 +93,24 @@ public class AdminDBTest {
     @Test
     public void testUpdateAdmin() {
         System.out.println("updateAdmin");
-        Admin admin = null;
+        Admin admin = new Admin(42005, "V6752", "stella89Updated", "8769stella", "Stella", "Bruce", "bru@gmail.com", 1165465374, "logged in");
         AdminDB instance = AdminDB.getInstance();
         boolean expResult = true;
         boolean result = instance.updateAdmin(admin);
         assertEquals(expResult, result);
+        
+        //getting the object back to check the fields properly
+        Admin resultAdmin = instance.getAdmin(42005);
+        
+        assertEquals(admin.getId(), resultAdmin.getId());
+        assertEquals(admin.getNic(), resultAdmin.getNic());
+        assertEquals(admin.getUsername(), resultAdmin.getUsername());
+        assertEquals(admin.getPassword(), resultAdmin.getPassword());
+        assertEquals(admin.getFirstName(), resultAdmin.getFirstName());
+        assertEquals(admin.getLastName(), resultAdmin.getLastName());
+        assertEquals(admin.getEmail(), resultAdmin.getEmail());
+        assertEquals(admin.getPhoneNumber(), resultAdmin.getPhoneNumber());
+        assertEquals(admin.getLoginStatus(), resultAdmin.getLoginStatus());
     }
 
     /**
@@ -93,7 +119,7 @@ public class AdminDBTest {
     @Test
     public void testDeleteAdmin() {
         System.out.println("deleteAdmin");
-        int id = 0;
+        int id = 42006;
         AdminDB instance = AdminDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteAdmin(id);
