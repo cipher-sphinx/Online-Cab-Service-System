@@ -67,8 +67,19 @@ public class DriverDB {
         return false;
     }
     
-    //UPDATE a driver 
+    //UPDATE driver
     public boolean updateDriver(Driver driver) {
+        city = new City(driver.getCity().getCityID());
+        query = "UPDATE driver SET DriverNIC = '" + driver.getNic()+ "', DriverUsername = '" + driver.getUsername() + "', DriverPassword = '" + driver.getPassword() + "', DriverFirstName = '" + driver.getFirstName() + "', DriverLastName = '" + driver.getLastName() + "', DriverEmail = '" + driver.getEmail() + "', DriverPhoneNumber = '" + driver.getPhoneNumber() + "', DriverLoginStatus = '" + driver.getLoginStatus() + "', DriverLicenceID = '" + driver.getDriverLicenceID() + "', DriverStatus = '" + driver.getDriverStatus() + "', CityID = '"+ city.getCityID() + "' WHERE (`DriverID` = '"  + driver.getId()+ "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

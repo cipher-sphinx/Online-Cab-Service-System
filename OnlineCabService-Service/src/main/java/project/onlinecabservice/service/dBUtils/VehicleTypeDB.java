@@ -65,8 +65,18 @@ public class VehicleTypeDB {
         return false;
     }
     
-    //UPDATE a vehicletype 
+    //UPDATE vehicletype
     public boolean updateVehicleType(VehicleType vehicletype) {
+        query = "UPDATE vehicletype SET TypeName = '" + vehicletype.getTypeName()  + "', VehicleCapacity = '" + vehicletype.getVehicleCapacity() + "', PricePerKmInLKR = '" + vehicletype.getPricePerKmInLKR() + "' WHERE (`TypeID` = '"  + vehicletype.getTypeID() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

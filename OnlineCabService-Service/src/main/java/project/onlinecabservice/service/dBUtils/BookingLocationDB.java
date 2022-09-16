@@ -76,8 +76,20 @@ public class BookingLocationDB {
         return false;
     }
     
-    //UPDATE a bookinglocation 
+    //UPDATE bookinglocation
     public boolean updateBookingLocation(BookingLocation bookinglocation) {
+        source = new Street(bookinglocation.getSource().getStreetID());
+        destination = new Street(bookinglocation.getSource().getStreetID());        
+        query = "UPDATE bookinglocation SET BkSourceID = '" + source.getStreetID() + "', BkDestinationID = '" + destination.getStreetID() + "', BkDistanceInKm = '" + bookinglocation.getDistanceInKm() + "' WHERE (`BkLocationID` = '"  + bookinglocation.getBookingLocationID()+ "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

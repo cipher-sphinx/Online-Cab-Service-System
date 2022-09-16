@@ -74,8 +74,20 @@ public class VehicleDB {
         return false;
     }
     
-    //UPDATE a vehicle 
+    //UPDATE vehicle
     public boolean updateVehicle(Vehicle vehicle) {
+        driver = new Driver(vehicle.getDriver().getId());
+        vehicletype = new VehicleType(vehicle.getVehicleType().getTypeID());
+        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleNumber = '" + vehicle.getVehicleColour() + "', VehicleInsuranceID = '" + vehicle.getVehicleInsuranceID() + "', VehicleColour = '" + vehicle.getVehicleColour() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "', TypeID = '" + vehicletype.getTypeID() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

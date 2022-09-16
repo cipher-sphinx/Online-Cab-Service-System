@@ -63,8 +63,18 @@ public class CustomerDB {
         return false;
     }
     
-    //UPDATE a customer 
+    //UPDATE customer
     public boolean updateCustomer(Customer customer) {
+        query = "UPDATE customer SET CustomerNIC = '" + customer.getNic()+ "', CustomerUsername = '" + customer.getUsername() + "', CustomerPassword = '" + customer.getPassword() + "', CustomerFirstName = '" + customer.getFirstName() + "', CustomerLastName = '" + customer.getLastName() + "', CustomerEmail = '" + customer.getEmail() + "', CustomerPhoneNumber = '" + customer.getPhoneNumber() + "', CustomerLoginStatus = '" + customer.getLoginStatus() + "', CustomerStatus = '" + customer.getCustomerStatus() + "' WHERE (`CustomerID` = '"  + customer.getId()+ "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

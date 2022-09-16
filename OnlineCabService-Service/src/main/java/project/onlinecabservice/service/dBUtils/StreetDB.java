@@ -66,8 +66,19 @@ public class StreetDB {
         return false;
     }
     
-    //UPDATE a street 
+    //UPDATE street
     public boolean updateStreet(Street street) {
+        city = new City(street.getCity().getCityID());
+        query = "UPDATE street SET StreetName = '" + street.getStreetName() + "' , CityID = '" + city.getCityID() + "' WHERE (`StreetID` = '"  + street.getStreetID() + "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

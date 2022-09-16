@@ -105,8 +105,23 @@ public class BookingDB {
         return false;
     }
     
-    //UPDATE a booking 
+    //UPDATE booking
     public boolean updateBooking(Booking booking) {
+        customer = new Customer(booking.getCustomer().getId());
+        driver = new Driver(booking.getDriver().getId());
+        vehicle = new Vehicle(booking.getVehicle().getVehicleID());
+        bookinglocation = new BookingLocation(booking.getBookingLocations().getBookingLocationID());
+
+        query = "UPDATE booking SET PriceInLKR = '" + booking.getPriceInLKR() + "', BookingStatus = '" + booking.getBookingStatus() + "', BookingDateTime = '" + booking.getBookingDateTime() + "', Feedback = '" + booking.getFeedback() + "', IfAcceptedByDriver = '" + booking.getIfAcceptedByDriver() + "', CustomerID = '" + customer.getId() + "', DriverID = '" + driver.getId() + "', VehicleID = '" + vehicle.getVehicleID() + "', BkLocationID = '" + bookinglocation.getBookingLocationID() + "' WHERE (`BookingID` = '"  + booking.getBookingID() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

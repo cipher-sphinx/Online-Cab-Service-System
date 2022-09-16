@@ -62,8 +62,18 @@ public class AdminDB {
         return false;
     }
     
-    //UPDATE an admin 
+    //UPDATE admin
     public boolean updateAdmin(Admin admin) {
+        query = "UPDATE admin SET AdminNIC = '" + admin.getNic()+ "', AdminUsername = '" + admin.getUsername() + "', AdminPassword = '" + admin.getPassword() + "', AdminFirstName = '" + admin.getFirstName() + "', AdminLastName = '" + admin.getLastName() + "', AdminEmail = '" + admin.getEmail() + "', AdminPhoneNumber = '" + admin.getPhoneNumber() + "', AdminLoginStatus = '" + admin.getLoginStatus() + "' WHERE (`AdminID` = '"  + admin.getId()+ "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

@@ -63,8 +63,18 @@ public class CityDB {
         return false;
     }
     
-    //UPDATE a city 
+    //UPDATE city
     public boolean updateCity(City city) {
+        query = "UPDATE city SET CityName = '" + city.getCityName() + "', CityPhoneNumber = '" + city.getCityPhoneNumber() + "' WHERE (`CityID` = '"  + city.getCityID() + "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

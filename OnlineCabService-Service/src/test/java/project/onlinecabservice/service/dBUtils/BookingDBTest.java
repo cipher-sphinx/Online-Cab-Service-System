@@ -226,7 +226,7 @@ public class BookingDBTest {
         assertEquals(expResult, result);
         
         //getting the object back to check the fields properly
-        Booking resultBooking = instance.getBooking(0);
+        Booking resultBooking = instance.getBooking(93003);
         
         assertEquals(booking.getBookingID(), resultBooking.getBookingID());
         assertEquals(booking.getBookingStatus(), resultBooking.getBookingStatus());
