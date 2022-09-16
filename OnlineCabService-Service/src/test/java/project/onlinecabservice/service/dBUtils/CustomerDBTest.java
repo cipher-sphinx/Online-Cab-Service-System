@@ -121,7 +121,7 @@ public class CustomerDBTest {
     @Test
     public void testDeleteCustomer() {
         System.out.println("deleteCustomer");
-        int id = 32001;
+        int id = 32008;
         CustomerDB instance = CustomerDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteCustomer(id);

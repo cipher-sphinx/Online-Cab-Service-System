@@ -93,7 +93,7 @@ public class BookingLocationDB {
     //UPDATE bookinglocation
     public boolean updateBookingLocation(BookingLocation bookinglocation) {
         source = new Street(bookinglocation.getSource().getStreetID());
-        destination = new Street(bookinglocation.getSource().getStreetID());        
+        destination = new Street(bookinglocation.getDestination().getStreetID());        
         query = "UPDATE bookinglocation SET BkSourceID = '" + source.getStreetID() + "', BkDestinationID = '" + destination.getStreetID() + "', BkDistanceInKm = '" + bookinglocation.getDistanceInKm() + "' WHERE (`BkLocationID` = '"  + bookinglocation.getBookingLocationID()+ "')";
         try {
             dBInit =  DBConnection.getInstance();
@@ -107,8 +107,18 @@ public class BookingLocationDB {
         return false;
     }
     
-    //DELETE a bookinglocation
+    //DELETE a bookinglocation by its ID
     public boolean deleteBookingLocation(int id) {
+        query = "call cabservicedatabase.deleteBookingLocation(" + id + ")";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
  

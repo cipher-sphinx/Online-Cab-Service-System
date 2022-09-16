@@ -142,8 +142,18 @@ public class BookingDB {
         return false;
     }
     
-    //DELETE a booking
+    //DELETE a booking by its ID
     public boolean deleteBooking(int id) {
+        query = "call cabservicedatabase.deleteBooking(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

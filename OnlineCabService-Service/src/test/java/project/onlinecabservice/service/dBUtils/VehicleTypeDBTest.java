@@ -105,7 +105,7 @@ public class VehicleTypeDBTest {
     @Test
     public void testDeleteVehicleType() {
         System.out.println("deleteVehicleType");
-        int id = 57009;
+        int id = 57011;
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteVehicleType(id);

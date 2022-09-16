@@ -89,8 +89,18 @@ public class AdminDB {
         return false;
     }
     
-    //DELETE an admin
+    //DELETE an admin by its ID
     public boolean deleteAdmin(int id) {
+        query = "call cabservicedatabase.deleteAdmin("+ id +")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

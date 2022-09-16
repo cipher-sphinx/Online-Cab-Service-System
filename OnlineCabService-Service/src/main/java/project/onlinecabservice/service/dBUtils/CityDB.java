@@ -90,8 +90,18 @@ public class CityDB {
         return false;
     }
     
-    //DELETE a city
+    //DELETE a city by its ID
     public boolean deleteCity(int id) {
+        query = "call cabservicedatabase.deleteCity(" + id + ")";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

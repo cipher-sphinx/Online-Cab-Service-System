@@ -92,8 +92,18 @@ public class VehicleTypeDB {
         return false;
     }
     
-    //DELETE a vehicletype
+    //DELETE a vehicletype by its ID
     public boolean deleteVehicleType(int id) {
+        query = "call cabservicedatabase.deleteVehicleType(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

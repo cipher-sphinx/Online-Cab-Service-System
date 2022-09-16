@@ -182,7 +182,7 @@ public class BookingDBTest {
         assertEquals(expResult, result);
         
         //getting the object back to check the fields properly
-        Booking resultBooking = instance.getBooking(0);
+        Booking resultBooking = instance.getBooking(93003);
         
         assertEquals(booking.getBookingID(), resultBooking.getBookingID());
         assertEquals(booking.getBookingStatus(), resultBooking.getBookingStatus());
@@ -248,7 +248,7 @@ public class BookingDBTest {
     @Test
     public void testDeleteBooking() {
         System.out.println("deleteBooking");
-        int id = 93002;
+        int id = 93001;
         BookingDB instance = BookingDB.getInstance();
         boolean expResult = true;
         boolean result = instance.deleteBooking(id);

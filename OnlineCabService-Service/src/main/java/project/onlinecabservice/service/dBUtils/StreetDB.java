@@ -95,8 +95,18 @@ public class StreetDB {
         return false;
     }
     
-    //DELETE a street
+    //DELETE a street by its ID
     public boolean deleteStreet(int id) {
+        query = "call cabservicedatabase.deleteStreet(" + id + ")";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

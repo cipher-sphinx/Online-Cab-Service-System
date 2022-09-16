@@ -96,8 +96,18 @@ public class DriverDB {
         return false;
     }
     
-    //DELETE a driver
+    //DELETE a driver by its ID
     public boolean deleteDriver(int id) {
+        query = "call cabservicedatabase.deleteDriver(" + id + ")";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     
