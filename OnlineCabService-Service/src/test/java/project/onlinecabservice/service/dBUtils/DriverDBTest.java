@@ -77,7 +77,7 @@ public class DriverDBTest {
         System.out.println("addDriver");
         Driver driver = null;
         DriverDB instance = DriverDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addDriver(driver);
         assertEquals(expResult, result);
     }
@@ -90,7 +90,7 @@ public class DriverDBTest {
         System.out.println("updateDriver");
         Driver driver = null;
         DriverDB instance = DriverDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateDriver(driver);
         assertEquals(expResult, result);
     }
@@ -103,7 +103,7 @@ public class DriverDBTest {
         System.out.println("deleteDriver");
         int id = 0;
         DriverDB instance = DriverDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteDriver(id);
         assertEquals(expResult, result);
     }

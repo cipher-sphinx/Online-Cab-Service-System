@@ -69,7 +69,7 @@ public class AdminDBTest {
         System.out.println("addAdmin");
         Admin admin = null;
         AdminDB instance = AdminDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addAdmin(admin);
         assertEquals(expResult, result);
     }
@@ -82,7 +82,7 @@ public class AdminDBTest {
         System.out.println("updateAdmin");
         Admin admin = null;
         AdminDB instance = AdminDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateAdmin(admin);
         assertEquals(expResult, result);
     }
@@ -95,7 +95,7 @@ public class AdminDBTest {
         System.out.println("deleteAdmin");
         int id = 0;
         AdminDB instance = AdminDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteAdmin(id);
         assertEquals(expResult, result);
     }

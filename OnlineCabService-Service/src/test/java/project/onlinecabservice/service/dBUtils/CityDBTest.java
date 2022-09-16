@@ -65,7 +65,7 @@ public class CityDBTest {
         System.out.println("addCity");
         City city = new City("AddCity", "addcity@onlinecabservice.com", 1239865712);
         CityDB instance = CityDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addCity(city);
         assertEquals(expResult, result);
        
@@ -79,7 +79,7 @@ public class CityDBTest {
         System.out.println("updateCity");
         City city = null;
         CityDB instance = CityDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateCity(city);
         assertEquals(expResult, result);
     }
@@ -92,7 +92,7 @@ public class CityDBTest {
         System.out.println("deleteCity");
         int id = 0;
         CityDB instance = CityDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteCity(id);
         assertEquals(expResult, result);
     }

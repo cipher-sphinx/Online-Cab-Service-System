@@ -70,7 +70,7 @@ public class CustomerDBTest {
         System.out.println("addCustomer");
         Customer customer = null;
         CustomerDB instance = CustomerDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addCustomer(customer);
         assertEquals(expResult, result);
     }
@@ -83,7 +83,7 @@ public class CustomerDBTest {
         System.out.println("updateCustomer");
         Customer customer = null;
         CustomerDB instance = CustomerDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateCustomer(customer);
         assertEquals(expResult, result);
     }
@@ -96,7 +96,7 @@ public class CustomerDBTest {
         System.out.println("deleteCustomer");
         int id = 0;
         CustomerDB instance = CustomerDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteCustomer(id);
         assertEquals(expResult, result);
     }

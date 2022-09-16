@@ -65,7 +65,7 @@ public class VehicleTypeDBTest {
         System.out.println("addVehicleType");
         VehicleType vehicletype = null;
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addVehicleType(vehicletype);
         assertEquals(expResult, result);
     }
@@ -78,7 +78,7 @@ public class VehicleTypeDBTest {
         System.out.println("updateVehicleType");
         VehicleType vehicletype = null;
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateVehicleType(vehicletype);
         assertEquals(expResult, result);
     }
@@ -91,7 +91,7 @@ public class VehicleTypeDBTest {
         System.out.println("deleteVehicleType");
         int id = 0;
         VehicleTypeDB instance = VehicleTypeDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteVehicleType(id);
         assertEquals(expResult, result);
     }

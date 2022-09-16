@@ -87,7 +87,7 @@ public class BookingLocationDBTest {
         System.out.println("addBookingLocation");
         BookingLocation bookinglocation = null;
         BookingLocationDB instance = BookingLocationDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addBookingLocation(bookinglocation);
         assertEquals(expResult, result);
     }
@@ -100,7 +100,7 @@ public class BookingLocationDBTest {
         System.out.println("updateBookingLocation");
         BookingLocation bookinglocation = null;
         BookingLocationDB instance = BookingLocationDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateBookingLocation(bookinglocation);
         assertEquals(expResult, result);
     }
@@ -113,7 +113,7 @@ public class BookingLocationDBTest {
         System.out.println("deleteBookingLocation");
         int id = 0;
         BookingLocationDB instance = BookingLocationDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteBookingLocation(id);
         assertEquals(expResult, result);
     }

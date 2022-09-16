@@ -161,7 +161,7 @@ public class BookingDBTest {
         System.out.println("addBooking");
         Booking booking = null;
         BookingDB instance = BookingDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addBooking(booking);
         assertEquals(expResult, result);
     }
@@ -174,7 +174,7 @@ public class BookingDBTest {
         System.out.println("updateBooking");
         Booking booking = null;
         BookingDB instance = BookingDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateBooking(booking);
         assertEquals(expResult, result);
     }
@@ -187,7 +187,8 @@ public class BookingDBTest {
         System.out.println("deleteBooking");
         int id = 0;
         BookingDB instance = BookingDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
+        
         boolean result = instance.deleteBooking(id);
         assertEquals(expResult, result);
     }

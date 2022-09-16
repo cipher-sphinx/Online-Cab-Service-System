@@ -70,7 +70,7 @@ public class StreetDBTest {
         System.out.println("addStreet");
         Street street = null;
         StreetDB instance = StreetDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addStreet(street);
         assertEquals(expResult, result);
     }
@@ -83,7 +83,7 @@ public class StreetDBTest {
         System.out.println("updateStreet");
         Street street = null;
         StreetDB instance = StreetDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateStreet(street);
         assertEquals(expResult, result);
     }
@@ -96,7 +96,7 @@ public class StreetDBTest {
         System.out.println("deleteStreet");
         int id = 0;
         StreetDB instance = StreetDB.getInstance();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deleteStreet(id);
         assertEquals(expResult, result);
     }
