@@ -96,14 +96,14 @@ public class VehicleDBTest {
         City city = new City(65016, "Weligama", "weligama@onlinecabservice.com", 1239865712);
         Driver driver = new Driver(52011, "V098", "asian", "may23", "May", "Nick", "nick@gmail.com", 1243826833, "logged in", "562321587", "available", city);
 
-        Vehicle vehicle = new Vehicle(27004, "8686GF7", "NP7868", "87696GHYU6", "black", "available", vehicletype, driver);
+        Vehicle vehicle = new Vehicle(27007, "8686GF7", "NP7868", "87696GHYU6", "black", "available", vehicletype, driver);
         VehicleDB instance = VehicleDB.getInstance();
         boolean expResult = true;
         boolean result = instance.addVehicle(vehicle);
         assertEquals(expResult, result);
 
         //getting the object back to check the fields properly        
-        Vehicle resultVehicle = instance.getVehicle(27004);
+        Vehicle resultVehicle = instance.getVehicle(27007);
         
         assertEquals(vehicle.getVehicleID(), resultVehicle.getVehicleID());
         assertEquals(vehicle.getVehicleRegisterID(), resultVehicle.getVehicleRegisterID());

@@ -71,8 +71,22 @@ public class BookingLocationDB {
         return null;
     }
     
-    //ADD a bookinglocation
+    //ADD bookinglocation
     public boolean addBookingLocation(BookingLocation bookinglocation) {
+        source = new Street(bookinglocation.getSource().getStreetID());
+        destination = new Street(bookinglocation.getSource().getStreetID());
+        query = "INSERT INTO bookinglocation(BkSourceID, BkDestinationID, BkDistanceInKm) VALUES ('"+ source.getStreetID() +  "', '" + destination.getStreetID() + "', '" + bookinglocation.getDistanceInKm() + "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+        
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

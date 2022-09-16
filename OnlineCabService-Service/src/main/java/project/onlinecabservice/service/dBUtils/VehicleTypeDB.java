@@ -60,8 +60,20 @@ public class VehicleTypeDB {
         return null;
     }
     
-    //ADD a vehicletype
+    //ADD vehicletype
     public boolean addVehicleType(VehicleType vehicletype) {
+        query = "INSERT INTO vehicletype(TypeName, VehicleCapacity, PricePerKmInLKR) VALUES ('" + vehicletype.getTypeName() + "', '" + vehicletype.getVehicleCapacity() + "', '" + vehicletype.getPricePerKmInLKR() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

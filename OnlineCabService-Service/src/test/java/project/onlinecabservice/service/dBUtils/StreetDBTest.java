@@ -77,7 +77,7 @@ public class StreetDBTest {
         assertEquals(expResult, result);
         
         //getting the object back to check the fields properly
-        Street resultStreet = instance.getStreet(65015);
+        Street resultStreet = instance.getStreet(75037);
         
         assertEquals(street.getStreetID(), resultStreet.getStreetID());
         assertEquals(street.getStreetName(), resultStreet.getStreetName());

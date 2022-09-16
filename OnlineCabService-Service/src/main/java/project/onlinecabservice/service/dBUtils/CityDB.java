@@ -58,8 +58,20 @@ public class CityDB {
         return null;
     }
     
-    //ADD a city
+    //ADD city
     public boolean addCity(City city) {
+        query = "INSERT INTO city(CityName, CityPhoneNumber, CityEmail) VALUES ('"+ city.getCityName()+  "', '" + city.getCityPhoneNumber() +   "', '"  + city.getCityEmail()  + "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+        
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

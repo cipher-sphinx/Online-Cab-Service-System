@@ -100,8 +100,25 @@ public class BookingDB {
         return null;
     }
     
-    //ADD a booking
+    //ADD booking
     public boolean addBooking(Booking booking) {
+        customer = new Customer(booking.getCustomer().getId());
+        driver = new Driver(booking.getDriver().getId());
+        vehicle = new Vehicle(booking.getVehicle().getVehicleID());
+        bookinglocation = new BookingLocation(booking.getBookingLocations().getBookingLocationID());
+        
+        query = "INSERT INTO booking(BookingStatus, BookingDateTime, Feedback, PriceInLKR, IfAcceptedByDriver, CustomerID, DriverID, VehicleID, BkLocationID) VALUES ('" + booking.getBookingStatus()+  "', '" + booking.getBookingDateTime() +  "', '" +  booking.getFeedback() +  "', '" +  booking.getIfAcceptedByDriver() +  "', '" +  customer.getId() +  "', '" +  driver.getId() +  "', '" +  vehicle.getVehicleID() +  "', '" +  bookinglocation.getBookingLocationID() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

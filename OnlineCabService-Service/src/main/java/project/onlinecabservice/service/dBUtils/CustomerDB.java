@@ -58,8 +58,20 @@ public class CustomerDB {
         return null;
     }
     
-    //ADD a customer
+    //ADD customer
     public boolean addCustomer(Customer customer) {
+        query = "INSERT INTO customer(CustomerNIC, CustomerUsername, CustomerPassword, CustomerFirstName, CustomerLastName, CustomerEmail, CustomerPhoneNumber, CustomerLoginStatus, CustomerStatus) VALUES ('" + customer.getNic() +  "', '" + customer.getUsername() +  "', '"  +  customer.getPassword() +  "', '" +  customer.getFirstName()  +  "', '"  +  customer.getLastName()  +  "', '"  +  customer.getEmail()  +  "', '"  +  customer.getPhoneNumber()  +  "', '"  +  customer.getLoginStatus()  +  "', '"  +  customer.getCustomerStatus() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+        
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

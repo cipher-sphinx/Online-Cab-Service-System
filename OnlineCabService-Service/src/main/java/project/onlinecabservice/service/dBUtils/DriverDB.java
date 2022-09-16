@@ -62,8 +62,21 @@ public class DriverDB {
         return null;
     }
     
-    //ADD a driver
+    //ADD driver
     public boolean addDriver(Driver driver) {
+        city = new City(driver.getCity().getCityID());
+        query = "INSERT INTO driver(DriverNIC, DriverUsername, DriverPassword, DriverFirstName, DriverLastName, DriverEmail, DriverPhoneNumber, DriverLoginStatus, DriverLicenceID, DriverStatus, CityID) VALUES ('" + driver.getNic() +  "', '" + driver.getUsername() +  "', '" +  driver.getPassword()  +  "', '" +  driver.getFirstName() +  "', '" +  driver.getLastName() +  "', '" +  driver.getEmail() +  "', '" +  driver.getPhoneNumber() +  "', '" +  driver.getLoginStatus() + "', '" + driver.getDriverLicenceID() + "', '" +  driver.getDriverStatus() +  "', '" + city.getCityID() +  "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

@@ -61,8 +61,21 @@ public class StreetDB {
         return null;
     }
     
-    //ADD a street
+    //ADD street
     public boolean addStreet(Street street) {
+        city = new City(street.getCity().getCityID());
+        query = "INSERT INTO street(StreetName, CityID) VALUES ('"+ street.getStreetName()+  "', '" + city.getCityID() + "')";
+        try {
+            dBInit =  DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+        
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

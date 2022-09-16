@@ -57,8 +57,20 @@ public class AdminDB {
         return null;
     }
     
-    //ADD an admin
+    //ADD admin
     public boolean addAdmin(Admin admin) {
+        query = "INSERT INTO admin(AdminNIC, AdminUsername, AdminPassword, AdminFirstName, AdminLastName, AdminEmail, AdminPhoneNumber, AdminLoginStatus) VALUES ('" + admin.getNic() +  "', '" + admin.getUsername() +  "', '"  +  admin.getPassword() +  "', '" +  admin.getFirstName()  +  "', '"  +  admin.getLastName()  +  "', '"  +  admin.getEmail()  +  "', '"  +  admin.getPhoneNumber()  +  "', '"  +  admin.getLoginStatus() + "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+        
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     

@@ -69,8 +69,22 @@ public class VehicleDB {
         return null;
     }
     
-    //ADD a vehicle
+    //ADD vehicle
     public boolean addVehicle(Vehicle vehicle) {
+        driver = new Driver(vehicle.getDriver().getId());
+        vehicletype = new VehicleType(vehicle.getVehicleType().getTypeID());
+        query = "INSERT INTO vehicle(VehicleRegisterID, VehicleNumber, VehicleInsuranceID, VehicleColour, VehicleStatus, DriverID, TypeID) VALUES ('" + vehicle.getVehicleRegisterID()+  "', '" + vehicle.getVehicleNumber() + "', '" + vehicle.getVehicleInsuranceID() + "', '" + vehicle.getVehicleColour() +  "', '" +  vehicle.getVehicleStatus() +  "', '" + driver.getId() + "', '" + vehicletype.getTypeID() +  "')";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            int rows = statement.executeUpdate(query);
+            
+            
+            return rows > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }  
         return false;
     }
     
@@ -78,7 +92,7 @@ public class VehicleDB {
     public boolean updateVehicle(Vehicle vehicle) {
         driver = new Driver(vehicle.getDriver().getId());
         vehicletype = new VehicleType(vehicle.getVehicleType().getTypeID());
-        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleNumber = '" + vehicle.getVehicleColour() + "', VehicleInsuranceID = '" + vehicle.getVehicleInsuranceID() + "', VehicleColour = '" + vehicle.getVehicleColour() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "', TypeID = '" + vehicletype.getTypeID() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
+        query = "UPDATE vehicle SET VehicleRegisterID = '" + vehicle.getVehicleRegisterID() + "', VehicleNumber = '" + vehicle.getVehicleNumber() + "', VehicleInsuranceID = '" + vehicle.getVehicleInsuranceID() + "', VehicleColour = '" + vehicle.getVehicleColour() + "', VehicleStatus = '" + vehicle.getVehicleStatus() + "', DriverID = '" + driver.getId() + "', TypeID = '" + vehicletype.getTypeID() + "' WHERE (`VehicleID` = '"  + vehicle.getVehicleID() + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();
