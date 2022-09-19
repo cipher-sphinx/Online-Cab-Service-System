@@ -1,0 +1,5 @@
+The link to clear images of the ER Diagrams
+
+Conceptual ER Diagram: https://postimg.cc/v1zSLLQk
+
+Logical ER Diagram: https://postimg.cc/f3BB0zCh
