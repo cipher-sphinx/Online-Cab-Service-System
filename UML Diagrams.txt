@@ -1,0 +1,11 @@
+UML Diagrams
+
+Class Diagram: https://postimg.cc/TKyDcRT6
+
+Use Case Diagram: https://postimg.cc/TyMpqgkV
+
+Customer Sequence Diagram: https://postimg.cc/NLMfXdsh
+
+Driver Sequence Diagram: https://postimg.cc/q6HhWty2
+
+Admin Sequence Diagram: https://postimg.cc/xJFQgS0w
