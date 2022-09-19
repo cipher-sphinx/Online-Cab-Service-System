@@ -9,56 +9,62 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
 
-    <title>Available Vehicles</title>
+    <title>Drivers</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: black;">
         <div class="container-fluid">
-            <a class="me-2" href="user_home.html">
-                <img src="https://i.postimg.cc/2SvpPkWN/gocheetah.png" alt="" width="300" height="40">
+            <a class="me-2" href="admin_home.html">
+                <img src="https://i.postimg.cc/Hk3XpScb/gocheetah.png" alt="" width="450" height="40">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav fs-5">
+                <ul class="navbar-nav fs-5 ms-auto me-3">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="user_home.html">HOME</a>
+                        <a class="nav-link active" aria-current="page" href="admin_home.html">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user_activity.html">ACTIVITY</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user_profile.html">PROFILE</a>
+                        <a class="nav-link" href="admin_profile.html">PROFILE</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" src="https://i.postimg.cc/h4yqm3n6/pic20.jpg" alt="">
-                    <div class="card-body">
-                        <h6>Driver ID : </h6>
-                        <h6>Driver Full Name : </h6>
-                        <h6>Price : </h6>
-                        <h6>Vehicle No : </h6>
-                        <h6>Vehicle Type : </h6>
-                        <h6>Vehicle Colour : </h6>
-                        <h6>Vehicle Capacity : </h6>
-                        <div class="text-center mt-3">
-                            <a type="button" class="btn btn-dark" href="user_booked.html">Confirm Booking</a>
+    <img class="d-flex m-auto" src="https://i.postimg.cc/mD5qBYHb/sales.jpg" width="50%">
+    <main class="m-3 p-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
+                            Area Chart Example
+                        </div>
+                        <div class="card-body">
+                            <canvas class="chart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
+                            Area Chart Example
+                        </div>
+                        <div class="card-body">
+                            <canvas class="chart" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

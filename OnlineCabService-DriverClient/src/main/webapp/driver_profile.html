@@ -1,117 +1,112 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <title>Driver Profile</title>
+    </head>
 
-    <title>Driver Profile</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: black;">
-        <div class="container-fluid">
-            <a class="me-2" href="driver_home.html">
-                <img src="https://i.postimg.cc/TPG8xjdR/gocheetah.png" alt="" width="450" height="40">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav fs-5">
-                    <li class="nav-item">
-                        <a class="nav-link" href="driver_home.html">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="driver_activity.html">ACTIVITY</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="driver_feedback.html">FEEDBACK</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="driver_profile.html">PROFILE</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="card m-3">
-            <div class="row">
-                <div class="col-lg-8 col-12">
-                    <img src=https://i.postimg.cc/WbHbsHCs/pic4.jpg" style="width: 100%;">
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: black;">
+            <div class="container-fluid">
+                <a class="me-2" href="driver_home.html">
+                    <img src="https://i.postimg.cc/TPG8xjdR/gocheetah.png" alt="" width="450" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav fs-5 ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="driver_home.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="driver_activity.html">ACTIVITY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="driver_profile.html">PROFILE</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-lg-4 col-12">
-                    <div style="background-color: lavender;">
-                        <div class="card-body text-center p-4">
-                            <div class="mb-2">
-                                <h6>Driver ID</h6>
-                                <p>001</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>First Name</h6>
-                                <p>John</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>Last Name</h6>
-                                <p>Doe</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>Username</h6>
-                                <p>john123</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>Password</h6>
-                                <p>helloJohn</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>Email</h6>
-                                <p>john@gmail.com</p>
-                            </div>
-                            <div class="mb-2">
-                                <h6>Phone</h6>
-                                <p>0112345678</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Status</h6>
-                                <p>Available</p>
-                            </div>
-                            <div>
-                                <a type="button" class="btn btn-dark" href="driver_edit_profile.html">Edit &nbsp;
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path
-                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fill-rule="evenodd"
-                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                    </svg>
-                                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="card m-3">
+                <div class="row">
+                    <div class="col-lg-8 col-12">
+                        <img src=https://i.postimg.cc/WbHbsHCs/pic4.jpg" style="width: 100%;">
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <div style="background-color: lavender; height:100%;">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-2">
+                                    <h6>Driver ID</h6>
+                                    <p>52001</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>First Name</h6>
+                                    <p>Jaden</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>Last Name</h6>
+                                    <p>Doe</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>NIC</h6>
+                                    <p>198978578864</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>Username</h6>
+                                    <p>jado_77</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>Password</h6>
+                                    <p>JjjjjDdddd@123</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>Email</h6>
+                                    <p>jadend@gmail.com</p>
+                                </div>
+                                <div class="mb-2">
+                                    <h6>Phone</h6>
+                                    <p>0758745678</p>
+                                </div>
+                                <div class="mb-3">
+                                    <h6>Status</h6>
+                                    <p>Available</p>
+                                </div>
+                                <div>
+                                    <a type="button" class="btn btn-dark" href="driver_edit_profile.html">Edit 
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+        <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-</body>
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        -->
+    </body>
 
 </html>
