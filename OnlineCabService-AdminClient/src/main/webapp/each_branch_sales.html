@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+
+    <title>Branch Sales</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: black;">
+        <div class="container-fluid">
+            <a class="me-2" href="admin_home.html">
+                <img src="https://i.postimg.cc/Hk3XpScb/gocheetah.png" alt="" width="450" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav fs-5 ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="admin_home.html">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_profile.html">PROFILE</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <img class="d-flex m-auto" src="https://i.postimg.cc/8Pmhs8YZ/sales-bg.jpg" width="50%">
+    <main class="m-3 p-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-header d-flex">
+                            <span><i class="bi bi-table me-2"></i>Galle Sales</span> 
+                            <span class="ms-auto">Total Sales = 3 868.00 LKR</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped data-table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>BookingID</th>
+                                            <th>DriverID</th>
+                                            <th>CustomerID</th>
+                                            <th>VehicleID</th>
+                                            <th>Distance</th>
+                                            <th>PriceinLKR</th>
+                                            <th>Total Sales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>93001</td>
+                                            <td>52001</td>
+                                            <td>32011</td>
+                                            <td>27003</td>
+                                            <td>3.7 km</td>
+                                            <td>564.00 LKR</td>
+                                            <td>564.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93002</td>
+                                            <td>52001</td>
+                                            <td>32011</td>
+                                            <td>27003</td>
+                                            <td>2.8 km</td>
+                                            <td>342.00 LKR</td>
+                                            <td>906.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93004</td>
+                                            <td>52001</td>
+                                            <td>32011</td>
+                                            <td>27003</td>
+                                            <td>6.2 km</td>
+                                            <td>618.00 LKR</td>
+                                            <td>1 542.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93006</td>
+                                            <td>52005</td>
+                                            <td>32011</td>
+                                            <td>27003</td>
+                                            <td>1.1 km</td>
+                                            <td>125.00 LKR</td>
+                                            <td>1 649.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93009</td>
+                                            <td>52001</td>
+                                            <td>32011</td>
+                                            <td>27003</td>
+                                            <td>6.7 km</td>
+                                            <td>786.00 LKR</td>
+                                            <td>2 435.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93011</td>
+                                            <td>52023</td>
+                                            <td>32065</td>
+                                            <td>27034</td>
+                                            <td>1.5 km</td>
+                                            <td>229.00 LKR</td>
+                                            <td>2 664.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93015</td>
+                                            <td>52012</td>
+                                            <td>32032</td>
+                                            <td>27019</td>
+                                            <td>7.4 km</td>
+                                            <td>874.00 LKR</td>
+                                            <td>3 538.00 LKR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>93023</td>
+                                            <td>52034</td>
+                                            <td>32078</td>
+                                            <td>27045</td>
+                                            <td>2.3 km</td>
+                                            <td>330.00 LKR</td>
+                                            <td>3 868.00 LKR</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
