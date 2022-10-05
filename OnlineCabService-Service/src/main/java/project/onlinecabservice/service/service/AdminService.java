@@ -40,6 +40,20 @@ public class AdminService {
 
         return gson.toJson(admin);
     }
+    
+    //GET an admin by its username and password
+    @GET
+    @Path("/{username}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAdminFromUP(@PathParam("username") String username, @PathParam("password") String password) {
+        adminDB = AdminDB.getInstance();
+        Admin admin = adminDB.getAdminFromUP(username, password);
+
+        gsonSingleton = GSON.getInstance();
+        Gson gson = gsonSingleton.createGSON();
+
+        return gson.toJson(admin);
+    }
 
     //GET all admins
     @GET

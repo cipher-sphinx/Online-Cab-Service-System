@@ -41,6 +41,20 @@ public class CustomerService {
 
         return gson.toJson(customer);
     }
+    
+    //GET a customer by its username and password
+    @GET
+    @Path("/{username}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCustomerFromUP(@PathParam("username") String username, @PathParam("password") String password) {
+        customerDB = CustomerDB.getInstance();
+        Customer customer = customerDB.getCustomerFromUP(username, password);
+
+        gsonSingleton = GSON.getInstance();
+        Gson gson = gsonSingleton.createGSON();
+
+        return gson.toJson(customer);
+    }
 
     //GET all customers
     @GET

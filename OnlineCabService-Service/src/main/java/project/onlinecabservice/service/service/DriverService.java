@@ -42,6 +42,20 @@ public class DriverService {
 
         return gson.toJson(driver);
     }
+    
+    //GET a driver by its username and password
+    @GET
+    @Path("/{username}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDriverFromUP(@PathParam("username") String username, @PathParam("password") String password) {
+        driverDB = DriverDB.getInstance();
+        Driver driver = driverDB.getDriverFromUP(username, password);
+
+        gsonSingleton = GSON.getInstance();
+        Gson gson = gsonSingleton.createGSON();
+
+        return gson.toJson(driver);
+    }
 
 
     //GET all drivers

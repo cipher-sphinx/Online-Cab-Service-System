@@ -52,6 +52,26 @@ public class AdminDB {
         return admin;
     }
     
+    //GET an admin by its username and password
+    public Admin getAdminFromUP(String username, String password) {
+        query = "SELECT * FROM admin WHERE AdminUsername = '" + username + "' AND AdminPassword = '" + password +"'";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                admin = new Admin(resultSet.getInt("AdminID"), resultSet.getString("AdminNIC"), resultSet.getString("AdminUsername"), resultSet.getString("AdminPassword"), resultSet.getString("AdminFirstName"), resultSet.getString("AdminLastName"), resultSet.getString("AdminEmail"), resultSet.getInt("AdminPhoneNumber"), resultSet.getString("AdminLoginStatus"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return admin;
+    }
+    
     //GET all admins
     public List<Admin> getAdmins() {
         List<Admin> admins = new ArrayList<>();

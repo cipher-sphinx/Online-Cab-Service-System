@@ -53,6 +53,26 @@ public class CustomerDB {
         return customer;
     }
     
+    //GET a customer by its username and password
+    public Customer getCustomerFromUP(String username, String password) {
+        query = "SELECT * FROM customer WHERE CustomerUsername = '" + username + "' AND CustomerPassword = '" + password +"'";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                customer = new Customer(resultSet.getInt("CustomerID"), resultSet.getString("CustomerNIC"), resultSet.getString("CustomerUsername"), resultSet.getString("CustomerPassword"), resultSet.getString("CustomerFirstName"), resultSet.getString("CustomerLastName"), resultSet.getString("CustomerEmail"), resultSet.getInt("CustomerPhoneNumber"), resultSet.getString("CustomerLoginStatus"), resultSet.getString("CustomerStatus"));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return customer;
+    }
+    
     //GET all customers
     public List<Customer> getCustomers() {
         List<Customer> customers = new ArrayList<>();

@@ -57,6 +57,26 @@ public class DriverDB {
         return driver;
     }
     
+    //GET a driver by its username and password
+    public Driver getDriverFromUP(String username, String password) {
+        query = "SELECT * FROM driver WHERE DriverUsername = '" + username + "' AND DriverPassword = '" + password +"'";
+        try {
+            dBInit = DBConnection.getInstance();
+            statement = dBInit.dBConnectionInit();
+            
+            resultSet = statement.executeQuery(query);
+            
+            // Extract data from result set
+            while(resultSet.next()) {
+                // Retrieve by column name
+                city = new City(resultSet.getInt("CityID"), resultSet.getString("CityName"), resultSet.getString("CityEmail"), resultSet.getInt("CityPhoneNumber"));
+                driver = new Driver(resultSet.getInt("DriverID"), resultSet.getString("DriverNIC"), resultSet.getString("DriverUsername"), resultSet.getString("DriverPassword"), resultSet.getString("DriverFirstName"), resultSet.getString("DriverLastName"), resultSet.getString("DriverEmail"), resultSet.getInt("DriverPhoneNumber"), resultSet.getString("DriverLoginStatus"), resultSet.getString("DriverLicenceID"), resultSet.getString("DriverStatus"), city);            }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return driver;
+    }
+    
     //GET all drivers
     public List<Driver> getDrivers() {
         List<Driver> drivers = new ArrayList<>();
