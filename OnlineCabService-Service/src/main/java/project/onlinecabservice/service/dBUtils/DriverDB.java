@@ -59,7 +59,7 @@ public class DriverDB {
     
     //GET a driver by its username and password
     public Driver getDriverFromUP(String username, String password) {
-        query = "SELECT * FROM driver WHERE DriverUsername = '" + username + "' AND DriverPassword = '" + password +"'";
+        query = "call cabservicedatabase.getDriverFromUP('" + username + "', '" + password + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

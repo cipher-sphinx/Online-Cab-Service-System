@@ -55,7 +55,7 @@ public class CustomerDB {
     
     //GET a customer by its username and password
     public Customer getCustomerFromUP(String username, String password) {
-        query = "SELECT * FROM customer WHERE CustomerUsername = '" + username + "' AND CustomerPassword = '" + password +"'";
+        query = "call cabservicedatabase.getCustomerFromUP('" + username + "', '" + password + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

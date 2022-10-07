@@ -380,6 +380,24 @@ END$$
 
 DELIMITER 
 
+-- get admin from username and password --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getAdminFromUP`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getAdminFromUP` (
+	IN username VARCHAR(100),
+    IN pword VARCHAR(100)
+)
+BEGIN
+	SELECT * FROM admin 
+    WHERE AdminUsername = username AND AdminPassword = pword;
+END$$
+
+DELIMITER ;
+
 -- delete admin --
 
 USE `cabservicedatabase`;
@@ -565,6 +583,23 @@ END$$
 
 DELIMITER ;
 
+-- get customer from username and password --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getCustomerFromUP`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getCustomerFromUP` (
+	IN username VARCHAR(100),
+    IN pword VARCHAR(100)
+)
+BEGIN
+	SELECT * FROM customer WHERE CustomerUsername = username AND CustomerPassword = pword;
+END$$
+
+DELIMITER ;
+
 -- delete customer --
 
 USE `cabservicedatabase`;
@@ -619,6 +654,22 @@ END$$
 
 DELIMITER ;
 
+-- get driver from username and password --
+
+USE `cabservicedatabase`;
+DROP procedure IF EXISTS `getDriverFromUP`;
+
+DELIMITER $$
+USE `cabservicedatabase`$$
+CREATE PROCEDURE `getDriverFromUP` (
+	IN username VARCHAR(100),
+    IN pword VARCHAR(100)
+)
+BEGIN
+	SELECT * FROM driver WHERE DriverUsername = username AND DriverPassword = pword;
+END$$
+
+DELIMITER ;
 
 -- delete driver --
 

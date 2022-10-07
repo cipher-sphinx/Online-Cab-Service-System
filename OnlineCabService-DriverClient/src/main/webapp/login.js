@@ -9,29 +9,34 @@
     //authentication
     function start() {
         const url = "http://localhost:8080/OnlineCabService-Service";
-        const client_url = "http://localhost:8080/OnlineCabService-CustomerClient";
+        const client_url = "http://localhost:8080/OnlineCabService-DriverClient";
         
-        var username = document.getElementById("customerUsername").value;
-        var password = document.getElementById("customerPassword").value;
+        var username = document.getElementById("driverUsername").value;
+        var password = document.getElementById("driverPassword").value;
         
         const options = {
             method : "GET"
         };
         
-        fetch(url + "/customer/" + username + "/" + password, options)
+        fetch(url + "/driver/" + username + "/" + password, options)
             .then((response) => response.json())
             .then((data) => {
                     if (data !== null) {
-                        var customerID = data.customerID;
-                        var customerNIC = data.customerNIC;
-                        var customerUsername = data.customerUsername; 
-                        var customerPassword = data.customerPassword;
-                        var customerFirstName = data.customerFirstName;
-                        var customerLastName = data.customerLastName;
-                        var customerEmail = data.customerEmail;
-                        var customerPhoneNumber = data.customerPhoneNumber;
-                        var customerLoginStatus = data.customerLoginStatus;
-                        var customerStatus = data.customerStatus;
+                        var driverID = data.driverID;
+                        var driverNIC = data.driverNIC;
+                        var driverUsername = data.driverUsername; 
+                        var driverPassword = data.driverPassword;
+                        var driverFirstName = data.driverFirstName;
+                        var driverLastName = data.driverLastName;
+                        var driverEmail = data.driverEmail;
+                        var driverPhoneNumber = data.driverPhoneNumber;
+                        var driverLoginStatus = data.driverLoginStatus;
+                        var driverLicenceID = data.DriverLicenceID;
+                        var driverStatus = data.driverStatus;
+                        var driverCityID = data.city.cityID;
+                        var driverCityName = data.city.cityName;
+                        var driverCityEmail = data.city.cityEmail;
+                        var driverCityPhoneNumber = data.city.cityPhoneNumber;
                     } else {
                         alert("Invalid login!");
                     }

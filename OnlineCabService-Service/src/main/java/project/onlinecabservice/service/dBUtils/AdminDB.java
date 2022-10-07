@@ -54,7 +54,7 @@ public class AdminDB {
     
     //GET an admin by its username and password
     public Admin getAdminFromUP(String username, String password) {
-        query = "SELECT * FROM admin WHERE AdminUsername = '" + username + "' AND AdminPassword = '" + password +"'";
+        query = "call cabservicedatabase.getAdminFromUP('" + username + "', '" + password + "')";
         try {
             dBInit = DBConnection.getInstance();
             statement = dBInit.dBConnectionInit();

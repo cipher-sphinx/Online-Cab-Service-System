@@ -9,29 +9,28 @@
     //authentication
     function start() {
         const url = "http://localhost:8080/OnlineCabService-Service";
-        const client_url = "http://localhost:8080/OnlineCabService-CustomerClient";
+        const client_url = "http://localhost:8080/OnlineCabService/AdminClient";
         
-        var username = document.getElementById("customerUsername").value;
-        var password = document.getElementById("customerPassword").value;
+        var username = document.getElementById("adminUsername").value;
+        var password = document.getElementById("adminPassword").value;
         
         const options = {
             method : "GET"
         };
         
-        fetch(url + "/customer/" + username + "/" + password, options)
+        fetch(url + "/admin/" + username + "/" + password, options)
             .then((response) => response.json())
             .then((data) => {
                     if (data !== null) {
-                        var customerID = data.customerID;
-                        var customerNIC = data.customerNIC;
-                        var customerUsername = data.customerUsername; 
-                        var customerPassword = data.customerPassword;
-                        var customerFirstName = data.customerFirstName;
-                        var customerLastName = data.customerLastName;
-                        var customerEmail = data.customerEmail;
-                        var customerPhoneNumber = data.customerPhoneNumber;
-                        var customerLoginStatus = data.customerLoginStatus;
-                        var customerStatus = data.customerStatus;
+                        var adminID = data.adminID;
+                        var adminNIC = data.adminNIC;
+                        var adminUsername = data.adminUsername; 
+                        var adminPassword = data.adminPassword;
+                        var adminFirstName = data.adminFirstName;
+                        var adminLastName = data.adminLastName;
+                        var adminEmail = data.adminEmail;
+                        var adminPhoneNumber = data.adminPhoneNumber;
+                        var adminLoginStatus = data.adminLoginStatus;
                     } else {
                         alert("Invalid login!");
                     }
